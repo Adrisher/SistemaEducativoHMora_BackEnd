@@ -1,9 +1,9 @@
 package com.ista.backend.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.io.Serializable;
+import lombok.Data;
 
 @Entity
 @Data

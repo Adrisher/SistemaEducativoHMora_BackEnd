@@ -2,9 +2,10 @@ package com.ista.backend.persistence.entity;
 
 import com.ista.backend.persistence.enums.AsistenciaStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+
 
 import java.util.Date;
+import lombok.Data;
 
 @Entity
 @Data

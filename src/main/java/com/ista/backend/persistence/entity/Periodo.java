@@ -1,10 +1,10 @@
 package com.ista.backend.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Data;
 
 @Entity
 @Data

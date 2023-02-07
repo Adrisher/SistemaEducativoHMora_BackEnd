@@ -36,5 +36,7 @@ public class Representante implements Serializable {
 	private Boolean estado;
 	private String ocupacion;
 
+	@OneToMany(mappedBy = "representante")
+	private List<Estudiante> estudiantes;
 
 }

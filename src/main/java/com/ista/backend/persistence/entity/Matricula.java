@@ -2,10 +2,9 @@ package com.ista.backend.persistence.entity;
 
 import com.ista.backend.persistence.enums.CicloStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Data;
 
 @Entity
 @Data

@@ -35,4 +35,8 @@ public class Estudiante implements Serializable{
 	private Boolean estado;
 	private String contraseña;
 
+	@ManyToOne
+	@JoinColumn(name = "id_representante")
+	private Representante representante;
+
 }

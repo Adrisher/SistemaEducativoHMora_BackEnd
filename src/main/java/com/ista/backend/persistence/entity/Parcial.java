@@ -3,6 +3,7 @@ package com.ista.backend.persistence.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 @Entity
 @Data
 @Table(name = "parcial")

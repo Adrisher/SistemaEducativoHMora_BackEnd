@@ -2,11 +2,10 @@ package com.ista.backend.persistence.entity;
 
 import com.ista.backend.persistence.enums.SexoStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Date;
+import lombok.Data;
 
 @Entity
 @Data

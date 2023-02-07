@@ -1,5 +1,6 @@
 package com.ista.backend.exceptions;
 
+
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
