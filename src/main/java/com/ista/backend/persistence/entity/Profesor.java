@@ -1,6 +1,6 @@
 package com.ista.backend.persistence.entity;
 
-import com.ista.backend.persistence.enums.sexoStatus;
+import com.ista.backend.persistence.enums.SexoStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,7 +29,7 @@ public class Profesor implements Serializable{
 	private String segundo_nombre;
 	private String primer_apellido;
 	private String segundo_apellido;
-	private sexoStatus genero;
+	private SexoStatus genero;
 	private Date fecha_nacimiento;
 	private String correo;
 	private String direccion;

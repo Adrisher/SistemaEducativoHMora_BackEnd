@@ -1,11 +1,12 @@
 package com.ista.backend.persistence.entity;
 
-import com.ista.backend.persistence.enums.sexoStatus;
+import com.ista.backend.persistence.enums.SexoStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,10 +29,12 @@ public class Representante implements Serializable {
 	private String segundo_nombre;
 	private String primer_apellido;
 	private String segundo_apellido;
-	private sexoStatus genero;
+	private SexoStatus genero;
 	private Date fecha_nacimiento;
 	private String correo;
 	private String direccion;
 	private Boolean estado;
 	private String ocupacion;
+
+
 }

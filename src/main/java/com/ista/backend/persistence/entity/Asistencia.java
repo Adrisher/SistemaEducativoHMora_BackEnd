@@ -26,5 +26,5 @@ public class Asistencia {
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
-    private AsistenciaStatus asiste;
+    private AsistenciaStatus asistencia;
 }

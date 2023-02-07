@@ -1,5 +1,5 @@
 package com.ista.backend.persistence.enums;
 
-public enum sexoStatus {
+public enum SexoStatus {
     M,F
 }
