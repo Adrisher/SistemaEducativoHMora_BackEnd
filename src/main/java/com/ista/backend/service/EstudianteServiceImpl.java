@@ -57,6 +57,7 @@ public class EstudianteServiceImpl implements EstudianteService{
         if (optional.isEmpty()){
             throw new SistemaEducativoExceptions("estudiante no encontrado", HttpStatus.NOT_FOUND);
         }
+        this.estudianteRepository.deleteById(id);
 
     }
 }

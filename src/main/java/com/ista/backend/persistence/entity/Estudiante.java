@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -35,8 +36,14 @@ public class Estudiante implements Serializable{
 	private Boolean estado;
 	private String contraseña;
 
+
 	@ManyToOne
 	@JoinColumn(name = "id_representante")
 	private Representante representante;
+
+	@OneToMany(mappedBy = "estudiante")
+	private List<Matricula> matriculas;
+
+
 
 }

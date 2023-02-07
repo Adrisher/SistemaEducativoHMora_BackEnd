@@ -3,6 +3,8 @@ package com.ista.backend.persistence.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 
 @Entity
@@ -22,4 +24,14 @@ public class Quimestre implements Serializable {
     private Double prom_ochenta;
     private Double examen_quimestral;
     private Double nota_final;
+
+    @ManyToOne
+    @JoinColumn(name = "id_libreta")
+    private Libreta_final libreta_final;
+
+    @OneToMany(mappedBy = "quimestre")
+    private List<Parcial> parciales;
+
+
+
 }

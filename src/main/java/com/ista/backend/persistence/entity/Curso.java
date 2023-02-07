@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 
 @Entity
@@ -23,4 +25,7 @@ public class Curso implements Serializable {
 
     private Integer cupo;
     private ParaleloStatus paralelo;
+
+    @OneToMany(mappedBy = "curso")
+    private List<Matricula> matriculas;
 }

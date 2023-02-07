@@ -54,7 +54,7 @@ public class CalificacionesServiceImpl implements CalificacionesService {
     public void borrarPorId(Long id) {
         Optional<Calificaciones> optional=this.calificacionesRepository.findById(id);
         if (optional.isEmpty()){
-            throw new SistemaEducativoExceptions("asistencia no encontrada", HttpStatus.NOT_FOUND);
+            throw new SistemaEducativoExceptions("parametro no encontrada", HttpStatus.NOT_FOUND);
         }
         this.calificacionesRepository.deleteById(id);
     }

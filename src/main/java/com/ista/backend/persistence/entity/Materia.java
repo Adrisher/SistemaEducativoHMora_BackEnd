@@ -20,4 +20,12 @@ public class Materia {
     private String abreviatura;
     private String descripcion;
     private String area;
+
+    @OneToOne
+    @JoinColumn(name = "id_libreta")
+    private Libreta_final libretaFinal;
+
+    @OneToOne
+    @JoinColumn(name = "matricula_detalle_id_detalle")
+    private Matricula_detalle matriculaDetalle;
 }

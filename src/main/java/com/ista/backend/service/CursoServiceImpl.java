@@ -52,7 +52,7 @@ public class CursoServiceImpl implements CursoService{
 
         Optional<Curso> optional=this.cursoRepository.findById(id);
         if (optional.isEmpty()){
-            throw new SistemaEducativoExceptions("asistencia no encontrada", HttpStatus.NOT_FOUND);
+            throw new SistemaEducativoExceptions("curso no encontrada", HttpStatus.NOT_FOUND);
         }
         this.cursoRepository.deleteById(id);
     }

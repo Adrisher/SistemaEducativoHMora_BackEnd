@@ -27,4 +27,24 @@ public class Matricula implements Serializable {
 
     private String observaciones;
 
+    @ManyToOne
+    @JoinColumn(name = "id_estudiante")
+    private Estudiante estudiante;
+
+    @ManyToOne
+    @JoinColumn(name = "id_periodo")
+    private Periodo periodo;
+
+    @ManyToOne
+    @JoinColumn(name = "curso_id_curso")
+    private Curso curso;
+
+    @OneToOne
+    @JoinColumn(name = "id_libreta")
+    private Libreta_final libretaFinal;
+
+    @OneToOne
+    @JoinColumn(name = "id_detalle")
+    private Matricula_detalle matriculaDetalle;
+
 }

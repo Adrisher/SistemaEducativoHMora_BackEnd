@@ -26,4 +26,8 @@ public class Calificaciones {
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
+    @ManyToOne
+    @JoinColumn(name = "id_parcial")
+    private Parcial parcial;
+
 }

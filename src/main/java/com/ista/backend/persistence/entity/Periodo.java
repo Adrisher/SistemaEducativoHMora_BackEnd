@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 @Entity
@@ -24,4 +26,7 @@ public class Periodo implements Serializable {
     private Date fecha_inicio;
 
     private Date fecha_fin;
+
+    @OneToMany(mappedBy = "periodo")
+    private List<Matricula> matriculas;
 }
