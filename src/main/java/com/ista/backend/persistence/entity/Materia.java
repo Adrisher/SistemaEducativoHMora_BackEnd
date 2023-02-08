@@ -28,4 +28,10 @@ public class Materia {
     @OneToOne
     @JoinColumn(name = "matricula_detalle_id_detalle")
     private Matricula_detalle matriculaDetalle;
+
+    @ManyToOne
+    @JoinColumn(name="id_profesor",referencedColumnName = "id_profesor")
+    private Profesor profesor;
+
+
 }

@@ -1,5 +1,6 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ista.backend.persistence.enums.SexoStatus;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -38,12 +39,16 @@ public class Estudiante implements Serializable{
 
 
 	@ManyToOne
-	@JoinColumn(name = "id_representante")
+	@JoinColumn(name = "id_representante",referencedColumnName = "id_representante")
 	private Representante representante;
 
-	@OneToMany(mappedBy = "estudiante")
+	@JsonIgnore
+	@OneToMany(mappedBy = "estudiante",cascade = CascadeType.ALL)
 	private List<Matricula> matriculas;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "estudiante",cascade = CascadeType.ALL)
+	private List<Asistencia> asistencia;
 
 
 }

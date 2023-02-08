@@ -1,19 +1,23 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ista.backend.persistence.enums.SexoStatus;
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Date;
-import lombok.Data;
+import java.util.List;
+
 
 @Entity
 @Data
 @Table(name = "profesor")
-public class Profesor implements Serializable{
+public class Profesor implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +25,7 @@ public class Profesor implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id_profesor;
 
-	@Column(name = "cedula",unique = true)
+	@Column(name = "cedula", unique = true)
 	private String cedula;
 
 	private String nombre;
@@ -36,10 +40,13 @@ public class Profesor implements Serializable{
 	private String area;
 	private String contraseña;
 
-	@Lob
-	private Blob cv;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "profesor")
+	private List<Materia> materia;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "profesor",cascade = CascadeType.ALL)
+	private List<Curso> curso;
 
-	
 
 }

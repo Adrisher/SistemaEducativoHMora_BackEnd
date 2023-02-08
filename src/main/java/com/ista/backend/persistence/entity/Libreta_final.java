@@ -1,5 +1,6 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,15 +21,16 @@ public class Libreta_final implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_libreta;
 
-    @OneToMany(mappedBy = "libreta_final")
+    @JsonIgnore
+    @OneToMany(mappedBy = "libreta_final",cascade = CascadeType.ALL)
     private List<Quimestre> quimestres;
 
     @OneToOne
-    @JoinColumn(name = "id_materia")
+    @JoinColumn(name = "id_materia",referencedColumnName = "id_materia")
     private Materia materia;
 
     @OneToOne
-    @JoinColumn(name = "id_matricula")
+    @JoinColumn(name = "id_matricula",referencedColumnName = "id_matricula")
     private Matricula matricula;
 
 

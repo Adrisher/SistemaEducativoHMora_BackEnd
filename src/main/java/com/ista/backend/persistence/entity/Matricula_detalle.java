@@ -25,11 +25,11 @@ public class Matricula_detalle implements Serializable {
     private Double promedio;
 
     @OneToOne
-    @JoinColumn(name = "id_matricula")
+    @JoinColumn(name = "id_matricula",referencedColumnName = "id_matricula")
     private Matricula matricula;
 
     @OneToOne
-    @JoinColumn(name = "materia_id_materia")
+    @JoinColumn(name = "id_materia",referencedColumnName = "id_materia")
     private Materia materia;
 
 }

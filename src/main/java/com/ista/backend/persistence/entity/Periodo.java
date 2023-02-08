@@ -1,5 +1,6 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -27,6 +28,7 @@ public class Periodo implements Serializable {
 
     private Date fecha_fin;
 
-    @OneToMany(mappedBy = "periodo")
+    @JsonIgnore
+    @OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL)
     private List<Matricula> matriculas;
 }

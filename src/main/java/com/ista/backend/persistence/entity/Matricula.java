@@ -28,23 +28,23 @@ public class Matricula implements Serializable {
     private String observaciones;
 
     @ManyToOne
-    @JoinColumn(name = "id_estudiante")
+    @JoinColumn(name = "id_estudiante",referencedColumnName = "id_estudiante")
     private Estudiante estudiante;
 
     @ManyToOne
-    @JoinColumn(name = "id_periodo")
+    @JoinColumn(name = "id_periodo",referencedColumnName = "id_periodo")
     private Periodo periodo;
 
     @ManyToOne
-    @JoinColumn(name = "curso_id_curso")
+    @JoinColumn(name = "id_curso",referencedColumnName = "id_curso")
     private Curso curso;
 
     @OneToOne
-    @JoinColumn(name = "id_libreta")
+    @JoinColumn(name = "id_libreta",referencedColumnName = "id_libreta")
     private Libreta_final libretaFinal;
 
     @OneToOne
-    @JoinColumn(name = "id_detalle")
+    @JoinColumn(name = "id_detalle",referencedColumnName = "id_detalle")
     private Matricula_detalle matriculaDetalle;
 
 }

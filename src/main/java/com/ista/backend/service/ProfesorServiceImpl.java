@@ -1,9 +1,11 @@
 package com.ista.backend.service;
 
 import com.ista.backend.exceptions.SistemaEducativoExceptions;
+import com.ista.backend.mapper.ProfesorDTOToProfesor;
 import com.ista.backend.persistence.entity.Profesor;
 import com.ista.backend.persistence.enums.SexoStatus;
 import com.ista.backend.persistence.repository.ProfesorRepository;
+import com.ista.backend.service.dto.ProfesorDTO;
 import org.apache.commons.io.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,11 +25,14 @@ import java.util.UUID;
 public class ProfesorServiceImpl implements ProfesorService {
 
     private final ProfesorRepository profesorRepository;
-    private final String UPLOAD_DIR="C:/Users/luisc/Documents/Workspace/SistemaEducativoHMora_BackEnd/src/main/resources/upload";
+    private final String UPLOAD_DIR="main/resources/upload";
+
+    private final ProfesorDTOToProfesor mapper;
 
 
-    public ProfesorServiceImpl(ProfesorRepository profesorRepository) {
+    public ProfesorServiceImpl(ProfesorRepository profesorRepository, ProfesorDTOToProfesor mapper ) {
         this.profesorRepository = profesorRepository;
+        this.mapper=mapper;
     }
 
     @Override
@@ -51,7 +56,13 @@ public class ProfesorServiceImpl implements ProfesorService {
     }
 
     @Override
-    public Profesor guardar(Profesor profesor) {
+    public Profesor guardar(ProfesorDTO dto) {
+        Profesor profesor=mapper.map(dto);
+        return this.profesorRepository.save(profesor);
+    }
+
+    @Override
+    public Profesor actualizar(Profesor profesor) {
         return this.profesorRepository.save(profesor);
     }
 
@@ -75,4 +86,6 @@ public class ProfesorServiceImpl implements ProfesorService {
         }
 
     }
+
+
 }

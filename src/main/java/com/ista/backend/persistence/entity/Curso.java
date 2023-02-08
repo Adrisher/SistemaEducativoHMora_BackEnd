@@ -28,4 +28,8 @@ public class Curso implements Serializable {
 
     @OneToMany(mappedBy = "curso")
     private List<Matricula> matriculas;
+
+    @ManyToOne
+    @JoinColumn(name="id_profesor",referencedColumnName = "id_profesor")
+    private Profesor profesor;
 }

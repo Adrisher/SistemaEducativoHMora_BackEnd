@@ -1,6 +1,7 @@
 package com.ista.backend.persistence.entity;
 
 import com.ista.backend.persistence.enums.AsistenciaStatus;
+import com.ista.backend.persistence.enums.CicloStatus;
 import jakarta.persistence.*;
 
 
@@ -20,12 +21,15 @@ public class Asistencia {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String estudiante;
-    private String curso;
+    private CicloStatus curso;
 
     @Column(name="fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
     private AsistenciaStatus asistencia;
+
+    @ManyToOne
+    @JoinColumn(name = "id_estudiante",referencedColumnName = "id_estudiante")
+    private Estudiante estudiante;
 }

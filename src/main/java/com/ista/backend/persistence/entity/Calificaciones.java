@@ -27,7 +27,7 @@ public class Calificaciones {
     private Date fecha;
 
     @ManyToOne
-    @JoinColumn(name = "id_parcial")
+    @JoinColumn(name = "id_parcial",referencedColumnName = "id_parcial")
     private Parcial parcial;
 
 }

@@ -1,21 +1,28 @@
 package com.ista.backend.controller;
 
 import com.ista.backend.exceptions.SistemaEducativoExceptions;
+import com.ista.backend.mapper.ProfesorDTOToProfesor;
+import com.ista.backend.persistence.entity.Profesor;
+import com.ista.backend.persistence.enums.SexoStatus;
 import com.ista.backend.service.ProfesorService;
+import com.ista.backend.service.dto.ProfesorDTO;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/hmora/profesor")
 public class ProfesorController {
 
     private final ProfesorService profesorService;
+    private ProfesorDTOToProfesor mapper;
 
     public ProfesorController(ProfesorService profesorService) {
         this.profesorService = profesorService;
@@ -29,4 +36,53 @@ public class ProfesorController {
             throw new SistemaEducativoExceptions("error", HttpStatus.OK);
         }
     }
+
+    @PostMapping("/crear")
+    public ResponseEntity<?> crearProfesor(@RequestBody ProfesorDTO dto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(dto));
+    }
+
+    @GetMapping("/ListarProfesores")
+    public List<Profesor> listarTodo(){
+        List<Profesor> profesores= StreamSupport.stream(profesorService.listarTodo().spliterator(),false).collect(Collectors.toList());
+        return profesores;
+    }
+
+    @GetMapping("/buscarId/{id}")
+    public ResponseEntity<?> buscar(@PathVariable(value="id")Long id){
+        Optional<Profesor> oProfesor=this.profesorService.buscarPorId(id);
+        if (!oProfesor.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(oProfesor);
+    }
+
+    @GetMapping("/obetenerListaGenero/{status}")
+    public List<Profesor> listarPorGenero(@PathVariable("status")SexoStatus status){
+        return this.profesorService.listarPorGenero(status);
+    }
+
+    @DeleteMapping("/borrarLista/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id")Long id){
+        this.profesorService.borrarPorId(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/actualizarProfesor/{id}")
+    public ResponseEntity<?> actualizar(@RequestBody ProfesorDTO profesorDetails,@PathVariable("id")Long id){
+
+        Optional<Profesor> profesorNew=this.profesorService.buscarPorId(id);
+        if (!profesorNew.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+
+        profesorNew.get().setDireccion(profesorDetails.getDireccion());
+        profesorNew.get().setCorreo(profesorDetails.getCorreo());
+        profesorNew.get().setArea(profesorDetails.getArea());
+        profesorNew.get().setContraseña(profesorDetails.getContraseña());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.actualizar(profesorNew.get()));
+    }
+
+
 }

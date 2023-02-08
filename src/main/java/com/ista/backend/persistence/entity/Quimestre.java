@@ -1,5 +1,6 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -26,10 +27,11 @@ public class Quimestre implements Serializable {
     private Double nota_final;
 
     @ManyToOne
-    @JoinColumn(name = "id_libreta")
+    @JoinColumn(name = "id_libreta",referencedColumnName = "id_libreta")
     private Libreta_final libreta_final;
 
-    @OneToMany(mappedBy = "quimestre")
+    @JsonIgnore
+    @OneToMany(mappedBy = "quimestre",cascade = CascadeType.ALL)
     private List<Parcial> parciales;
 
 

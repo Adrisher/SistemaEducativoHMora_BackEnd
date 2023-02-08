@@ -19,7 +19,6 @@ public class ProfesorDTOToProfesor implements IMapper<ProfesorDTO, Profesor> {
         profesor.setCorreo(in.getCorreo());
         profesor.setEstado(true);
         profesor.setArea(in.getArea());
-        profesor.setCv(null);
         return profesor;
     }
 }

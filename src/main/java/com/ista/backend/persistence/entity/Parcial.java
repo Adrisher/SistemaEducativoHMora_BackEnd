@@ -1,5 +1,6 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,10 +24,11 @@ public class Parcial {
     private Double promedio;
 
     @ManyToOne
-    @JoinColumn(name = "id_quimestre")
+    @JoinColumn(name = "id_quimestre",referencedColumnName = "id_quimestre")
     private Quimestre quimestre;
 
-    @OneToMany(mappedBy = "parcial")
+    @JsonIgnore
+    @OneToMany(mappedBy = "parcial",cascade = CascadeType.ALL)
     private List<Calificaciones> calificaciones;
 
 }
