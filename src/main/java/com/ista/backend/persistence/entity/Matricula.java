@@ -30,6 +30,7 @@ public class Matricula implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_estudiante",referencedColumnName = "id_estudiante")
+    @JsonIgnore
     private Estudiante estudiante;
 
     @ManyToOne
