@@ -37,6 +37,7 @@ public class Representante implements Serializable {
 	private String direccion;
 	private Boolean estado;
 	private String ocupacion;
+	private String telefonoContacto;
 
 
 	@JsonIgnore

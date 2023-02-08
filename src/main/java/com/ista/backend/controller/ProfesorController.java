@@ -5,6 +5,7 @@ import com.ista.backend.mapper.ProfesorDTOToProfesor;
 import com.ista.backend.persistence.entity.Profesor;
 import com.ista.backend.persistence.enums.SexoStatus;
 import com.ista.backend.service.ProfesorService;
+import com.ista.backend.service.dto.ActProfesorDTO;
 import com.ista.backend.service.dto.ProfesorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +39,8 @@ public class ProfesorController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<?> crearProfesor(@RequestBody ProfesorDTO dto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(dto));
+    public ResponseEntity<?> crearProfesor(@RequestBody Profesor profesor){
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesor));
     }
 
     @GetMapping("/ListarProfesores")
@@ -69,20 +70,19 @@ public class ProfesorController {
     }
 
     @PutMapping("/actualizarProfesor/{id}")
-    public ResponseEntity<?> actualizar(@RequestBody ProfesorDTO profesorDetails,@PathVariable("id")Long id){
-
-        Optional<Profesor> profesorNew=this.profesorService.buscarPorId(id);
-        if (!profesorNew.isPresent()){
+    public ResponseEntity<?> actualizar(@RequestBody ActProfesorDTO dto,@PathVariable(value="id")Long id){
+        Optional<Profesor> profesorAct=this.profesorService.buscarPorId(id);
+        if (!profesorAct.isPresent()){
             return ResponseEntity.notFound().build();
         }
+        profesorAct.get().setCorreo(dto.getCorreo());
+        profesorAct.get().setDireccion(dto.getDireccion());
+        profesorAct.get().setArea(dto.getArea());
+        profesorAct.get().setContraseña(dto.getContraseña());
 
-        profesorNew.get().setDireccion(profesorDetails.getDireccion());
-        profesorNew.get().setCorreo(profesorDetails.getCorreo());
-        profesorNew.get().setArea(profesorDetails.getArea());
-        profesorNew.get().setContraseña(profesorDetails.getContraseña());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.actualizar(profesorNew.get()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesorAct.get()));
     }
+
 
 
 }

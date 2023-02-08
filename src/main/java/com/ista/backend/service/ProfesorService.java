@@ -16,10 +16,9 @@ public interface ProfesorService {
     public Page<Profesor> listarTodo(Pageable pageable);
     public Optional<Profesor> buscarPorId(Long id);
     public List<Profesor> listarPorGenero(SexoStatus status);
-    public Profesor guardar(ProfesorDTO dto);
+    public Profesor guardar(Profesor profesor);
     public void borrarPorId(Long id);
-
     public void uploadFile(InputStream inputStream);
 
-    public Profesor actualizar(Profesor profesor);
+
 }

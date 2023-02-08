@@ -56,15 +56,11 @@ public class ProfesorServiceImpl implements ProfesorService {
     }
 
     @Override
-    public Profesor guardar(ProfesorDTO dto) {
-        Profesor profesor=mapper.map(dto);
+    public Profesor guardar(Profesor profesor) {
         return this.profesorRepository.save(profesor);
     }
 
-    @Override
-    public Profesor actualizar(Profesor profesor) {
-        return this.profesorRepository.save(profesor);
-    }
+
 
     @Override
     public void borrarPorId(Long id) {
