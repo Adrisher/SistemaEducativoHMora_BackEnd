@@ -1,5 +1,6 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -28,6 +29,7 @@ public class Calificaciones {
 
     @ManyToOne
     @JoinColumn(name = "id_parcial",referencedColumnName = "id_parcial")
+    @JsonIgnore
     private Parcial parcial;
 
 }

@@ -40,12 +40,14 @@ public class Profesor implements Serializable {
 	private String area;
 	private String contraseña;
 
-	@JsonIgnore
+
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "profesor")
+	@JsonIgnore
 	private List<Materia> materia;
 
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "profesor",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Curso> curso;
 
 

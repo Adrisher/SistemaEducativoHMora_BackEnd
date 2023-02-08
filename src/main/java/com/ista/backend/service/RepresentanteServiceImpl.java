@@ -59,4 +59,9 @@ public class RepresentanteServiceImpl implements RepresentanteService{
         }
         this.representanteRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existsById(Long id){
+        return this.representanteRepository.existsById(id);
+    }
 }

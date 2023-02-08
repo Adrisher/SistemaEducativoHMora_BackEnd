@@ -28,6 +28,7 @@ public class Quimestre implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_libreta",referencedColumnName = "id_libreta")
+    @JsonIgnore
     private Libreta_final libreta_final;
 
     @JsonIgnore

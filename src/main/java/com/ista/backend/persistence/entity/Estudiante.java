@@ -40,14 +40,16 @@ public class Estudiante implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "id_representante",referencedColumnName = "id_representante")
+	@JsonIgnore
 	private Representante representante;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "estudiante",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Matricula> matriculas;
 
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "estudiante",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Asistencia> asistencia;
 
 

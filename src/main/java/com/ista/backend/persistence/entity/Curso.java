@@ -1,5 +1,6 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ista.backend.persistence.enums.ParaleloStatus;
 import jakarta.persistence.*;
 
@@ -27,9 +28,11 @@ public class Curso implements Serializable {
     private ParaleloStatus paralelo;
 
     @OneToMany(mappedBy = "curso")
+    @JsonIgnore
     private List<Matricula> matriculas;
 
     @ManyToOne
     @JoinColumn(name="id_profesor",referencedColumnName = "id_profesor")
+    @JsonIgnore
     private Profesor profesor;
 }

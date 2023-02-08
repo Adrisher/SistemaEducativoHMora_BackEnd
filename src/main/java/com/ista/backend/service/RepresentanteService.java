@@ -17,4 +17,6 @@ public interface RepresentanteService {
     public List<Representante> listarPorGenero(SexoStatus status);
     public Representante guardar(Representante representante);
     public void borrarPorId(Long id);
+
+    public boolean existsById(Long id);
 }

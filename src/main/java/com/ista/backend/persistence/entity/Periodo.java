@@ -28,7 +28,7 @@ public class Periodo implements Serializable {
 
     private Date fecha_fin;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Matricula> matriculas;
 }

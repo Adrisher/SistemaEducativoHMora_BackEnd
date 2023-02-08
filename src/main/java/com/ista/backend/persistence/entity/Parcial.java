@@ -25,6 +25,7 @@ public class Parcial {
 
     @ManyToOne
     @JoinColumn(name = "id_quimestre",referencedColumnName = "id_quimestre")
+    @JsonIgnore
     private Quimestre quimestre;
 
     @JsonIgnore

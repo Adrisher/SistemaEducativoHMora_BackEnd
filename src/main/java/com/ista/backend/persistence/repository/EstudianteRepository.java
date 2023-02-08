@@ -12,4 +12,8 @@ public interface EstudianteRepository extends JpaRepository<Estudiante,Long> {
     public List<Estudiante> findAllByGenero(SexoStatus genero);
 
     public Optional<Estudiante> findByCedula(String cedula);
+
+    List<Estudiante> findAllByRepresentante(Long representanteId);
+
+
 }

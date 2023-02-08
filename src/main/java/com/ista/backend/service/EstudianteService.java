@@ -1,6 +1,7 @@
 package com.ista.backend.service;
 
 import com.ista.backend.persistence.entity.Estudiante;
+import com.ista.backend.persistence.entity.Representante;
 import com.ista.backend.persistence.enums.SexoStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +18,7 @@ public interface EstudianteService {
     public List<Estudiante> listarPorGenero(SexoStatus status);
     public Estudiante guardar(Estudiante estudiante);
     public void borrarPorId(Long id);
+    public List<Estudiante> findAllByRepresentante(Long id);
+
+
 }

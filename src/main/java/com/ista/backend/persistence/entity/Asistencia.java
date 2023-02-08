@@ -1,5 +1,6 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ista.backend.persistence.enums.AsistenciaStatus;
 import com.ista.backend.persistence.enums.CicloStatus;
 import jakarta.persistence.*;
@@ -31,5 +32,6 @@ public class Asistencia {
 
     @ManyToOne
     @JoinColumn(name = "id_estudiante",referencedColumnName = "id_estudiante")
+    @JsonIgnore
     private Estudiante estudiante;
 }

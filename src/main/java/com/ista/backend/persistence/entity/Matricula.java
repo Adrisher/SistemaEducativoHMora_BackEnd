@@ -1,5 +1,6 @@
 package com.ista.backend.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ista.backend.persistence.enums.CicloStatus;
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -33,18 +34,22 @@ public class Matricula implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_periodo",referencedColumnName = "id_periodo")
+    @JsonIgnore
     private Periodo periodo;
 
     @ManyToOne
     @JoinColumn(name = "id_curso",referencedColumnName = "id_curso")
+    @JsonIgnore
     private Curso curso;
 
     @OneToOne
     @JoinColumn(name = "id_libreta",referencedColumnName = "id_libreta")
+    @JsonIgnore
     private Libreta_final libretaFinal;
 
     @OneToOne
     @JoinColumn(name = "id_detalle",referencedColumnName = "id_detalle")
+    @JsonIgnore
     private Matricula_detalle matriculaDetalle;
 
 }

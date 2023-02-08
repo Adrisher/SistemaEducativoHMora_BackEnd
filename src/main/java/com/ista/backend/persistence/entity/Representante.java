@@ -40,8 +40,9 @@ public class Representante implements Serializable {
 	private String telefonoContacto;
 
 
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "representante",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Estudiante> estudiantes;
 
 }

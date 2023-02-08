@@ -23,7 +23,7 @@ import java.util.stream.StreamSupport;
 public class ProfesorController {
 
     private final ProfesorService profesorService;
-    private ProfesorDTOToProfesor mapper;
+
 
     public ProfesorController(ProfesorService profesorService) {
         this.profesorService = profesorService;
@@ -40,12 +40,12 @@ public class ProfesorController {
 
     @PostMapping("/crear")
     public ResponseEntity<?> crearProfesor(@RequestBody Profesor profesor){
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesor));
+        return  ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesor));
     }
 
     @GetMapping("/ListarProfesores")
     public List<Profesor> listarTodo(){
-        List<Profesor> profesores= StreamSupport.stream(profesorService.listarTodo().spliterator(),false).collect(Collectors.toList());
+        List<Profesor> profesores= StreamSupport.stream(this.profesorService.listarTodo().spliterator(),false).collect(Collectors.toList());
         return profesores;
     }
 
@@ -64,7 +64,7 @@ public class ProfesorController {
     }
 
     @DeleteMapping("/borrarLista/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id")Long id){
+    public ResponseEntity<Void> borrar(@PathVariable("id")Long id){
         this.profesorService.borrarPorId(id);
         return ResponseEntity.noContent().build();
     }

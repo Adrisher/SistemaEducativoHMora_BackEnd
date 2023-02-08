@@ -2,8 +2,10 @@ package com.ista.backend.service;
 
 import com.ista.backend.exceptions.SistemaEducativoExceptions;
 import com.ista.backend.persistence.entity.Estudiante;
+import com.ista.backend.persistence.entity.Representante;
 import com.ista.backend.persistence.enums.SexoStatus;
 import com.ista.backend.persistence.repository.EstudianteRepository;
+import com.ista.backend.persistence.repository.RepresentanteRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -59,5 +61,10 @@ public class EstudianteServiceImpl implements EstudianteService{
         }
         this.estudianteRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<Estudiante> findAllByRepresentante(Long id){
+        return this.estudianteRepository.findAllByRepresentante(id);
     }
 }

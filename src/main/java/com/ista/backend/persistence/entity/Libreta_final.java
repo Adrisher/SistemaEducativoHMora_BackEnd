@@ -27,10 +27,12 @@ public class Libreta_final implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "id_materia",referencedColumnName = "id_materia")
+    @JsonIgnore
     private Materia materia;
 
     @OneToOne
     @JoinColumn(name = "id_matricula",referencedColumnName = "id_matricula")
+    @JsonIgnore
     private Matricula matricula;
 
 
