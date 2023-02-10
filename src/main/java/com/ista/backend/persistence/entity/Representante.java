@@ -38,6 +38,7 @@ public class Representante implements Serializable {
 	private Boolean estado;
 	private String ocupacion;
 	private String telefonoContacto;
+	private String telefonoContacto2;
 
 
 

@@ -1,6 +1,7 @@
 package com.ista.backend.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ista.backend.persistence.enums.PromovidoStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,9 @@ public class Libreta_final implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_libreta;
+
+    private double promedio;
+    private PromovidoStatus promovido;
 
     @JsonIgnore
     @OneToMany(mappedBy = "libreta_final",cascade = CascadeType.ALL)

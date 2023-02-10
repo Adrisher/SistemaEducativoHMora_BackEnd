@@ -83,5 +83,11 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     }
 
+    @Override
+    public boolean existsById(Long id) {
+        return this.profesorRepository.existsById(id);
+    }
+
+
 
 }

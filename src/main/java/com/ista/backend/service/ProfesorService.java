@@ -20,5 +20,7 @@ public interface ProfesorService {
     public void borrarPorId(Long id);
     public void uploadFile(InputStream inputStream);
 
+    public boolean existsById(Long id);
+
 
 }

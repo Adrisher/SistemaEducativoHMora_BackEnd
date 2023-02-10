@@ -64,7 +64,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
-    public List<Estudiante> findAllByRepresentante(Long id){
-        return this.estudianteRepository.findAllByRepresentante(id);
+    public List<Estudiante> findAllByRepresentante(Long id_representante){
+        return this.estudianteRepository.findAllByRepresentante(id_representante);
     }
 }

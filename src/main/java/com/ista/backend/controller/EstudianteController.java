@@ -1,6 +1,7 @@
 package com.ista.backend.controller;
 
 import com.ista.backend.persistence.entity.Estudiante;
+import com.ista.backend.persistence.entity.Representante;
 import com.ista.backend.persistence.enums.SexoStatus;
 import com.ista.backend.service.EstudianteService;
 import com.ista.backend.service.RepresentanteService;
@@ -72,7 +73,7 @@ public class EstudianteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.estudianteService.guardar(estudianteAct.get()));
     }
 
-    @PostMapping("/representante/{id_representante}/estudiantes")
+    @PostMapping("/CrearEstudiantePorRepresentante/{id_representante}/estudiantes")
     public ResponseEntity<Estudiante> crearEstudiante(@PathVariable(value = "id_representante")Long id_representante,
                                                       @RequestBody Estudiante estudiante){
         Estudiante estudiante1=this.representanteService.buscarPorId(id_representante).map(representante -> {
@@ -84,12 +85,14 @@ public class EstudianteController {
 
     }
 
-    @GetMapping("/representante/{id_representante}/estudiantes")
+    @GetMapping("/Listar estudiantePorRepresentante /{id_representante}/estudiantes")
     public ResponseEntity<List<Estudiante>> listaEstudiantesPorRepresentante(@PathVariable(value = "id_representante")Long id_representante){
         if(!this.representanteService.existsById(id_representante)){
             throw new OpenApiResourceNotFoundException("no se encontro");
         }
-        List<Estudiante> estudiantes=this.estudianteService.findAllByRepresentante(id_representante);
+        Optional<Representante> represet=representanteService.buscarPorId(id_representante);
+
+        List<Estudiante> estudiantes=represet.get().getEstudiantes();
         return new ResponseEntity<>(estudiantes,HttpStatus.OK);
 
     }
