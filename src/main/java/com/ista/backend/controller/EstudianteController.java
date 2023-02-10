@@ -68,7 +68,6 @@ public class EstudianteController {
         }
         estudianteAct.get().setCorreo(act.getCorreo());
         estudianteAct.get().setDireccion(act.getDireccion());
-        estudianteAct.get().setContraseña(act.getContraseña());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.estudianteService.guardar(estudianteAct.get()));
     }

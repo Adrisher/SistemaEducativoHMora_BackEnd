@@ -78,7 +78,6 @@ public class ProfesorController {
         profesorAct.get().setCorreo(dto.getCorreo());
         profesorAct.get().setDireccion(dto.getDireccion());
         profesorAct.get().setArea(dto.getArea());
-        profesorAct.get().setContraseña(dto.getContraseña());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesorAct.get()));
     }

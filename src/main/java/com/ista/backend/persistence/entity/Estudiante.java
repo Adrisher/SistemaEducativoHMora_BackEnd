@@ -35,7 +35,6 @@ public class Estudiante implements Serializable{
 	private String correo;
 	private String direccion;
 	private Boolean estado;
-	private String contraseña;
 
 
 	@ManyToOne

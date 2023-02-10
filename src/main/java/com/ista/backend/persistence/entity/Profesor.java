@@ -38,7 +38,6 @@ public class Profesor implements Serializable {
 	private String direccion;
 	private Boolean estado;
 	private String area;
-	private String contraseña;
 
 
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "profesor")
