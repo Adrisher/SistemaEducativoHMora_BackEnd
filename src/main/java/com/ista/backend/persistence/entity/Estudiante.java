@@ -51,5 +51,11 @@ public class Estudiante implements Serializable{
 	@JsonIgnore
 	private List<Asistencia> asistencia;
 
+	@OneToOne
+	@JsonIgnore
+	@JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
+	private Usuario usuario;
+
+
 
 }

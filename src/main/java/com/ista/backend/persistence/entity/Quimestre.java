@@ -22,18 +22,20 @@ public class Quimestre implements Serializable {
     private Long id_quimestre;
 
     private Double promedioParcial;
-    private Double prom_ochenta;
     private Double examen_quimestral;
-    private Double nota_final;
 
-    @ManyToOne
-    @JoinColumn(name = "id_libreta",referencedColumnName = "id_libreta")
-    @JsonIgnore
-    private Libreta_final libreta_final;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "quimestre",cascade = CascadeType.ALL)
     private List<Parcial> parciales;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id_detalle",referencedColumnName = "id_detalle")
+    private Matricula_detalle matriculaDetalle;
+
+
 
 
 

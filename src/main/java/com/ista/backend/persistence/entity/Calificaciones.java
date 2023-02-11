@@ -20,16 +20,16 @@ public class Calificaciones {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_calificacion;
 
+    @ManyToOne
+    @JoinColumn(name = "id_parcial",referencedColumnName = "id_parcial")
+    @JsonIgnore
+    private Parcial parcial;
+
     private Double calificacion;
     private String descripcion;
 
     @Column(name="fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-
-    @ManyToOne
-    @JoinColumn(name = "id_parcial",referencedColumnName = "id_parcial")
-    @JsonIgnore
-    private Parcial parcial;
 
 }

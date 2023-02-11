@@ -31,8 +31,5 @@ public class Curso implements Serializable {
     @JsonIgnore
     private List<Matricula> matriculas;
 
-    @ManyToOne
-    @JoinColumn(name="id_profesor",referencedColumnName = "id_profesor")
-    @JsonIgnore
-    private Profesor profesor;
+
 }

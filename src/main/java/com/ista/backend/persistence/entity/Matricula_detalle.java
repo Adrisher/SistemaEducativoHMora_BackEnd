@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 
 @Entity
@@ -20,19 +22,19 @@ public class Matricula_detalle implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_detalle;
 
+    @OneToMany(mappedBy = "matriculaDetalle",cascade= CascadeType.ALL)
+    @JsonIgnore
+    private List<Materia> materias;
+
     private Double supletorio;
     private Double remedial;
     private Double gracia;
-    private Double promedio;
+    private Double promedio_final;
 
-    @OneToOne
-    @JoinColumn(name = "id_matricula",referencedColumnName = "id_matricula")
+    @OneToMany(mappedBy ="matriculaDetalle",cascade = CascadeType.ALL)
     @JsonIgnore
-    private Matricula matricula;
+    private List<Quimestre> quimestre;
 
-    @OneToOne
-    @JoinColumn(name = "id_materia",referencedColumnName = "id_materia")
-    @JsonIgnore
-    private Materia materia;
+
 
 }

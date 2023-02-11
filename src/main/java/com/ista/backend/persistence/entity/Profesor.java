@@ -39,15 +39,16 @@ public class Profesor implements Serializable {
 	private Boolean estado;
 	private String area;
 
-
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "profesor")
+	@OneToOne
 	@JsonIgnore
-	private List<Materia> materia;
+	@JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
+	private Usuario usuario;
 
 
-	@OneToMany(mappedBy = "profesor",cascade = CascadeType.ALL)
-	@JsonIgnore
-	private List<Curso> curso;
+
+
+
+
 
 
 }

@@ -43,10 +43,6 @@ public class Matricula implements Serializable {
     @JsonIgnore
     private Curso curso;
 
-    @OneToOne
-    @JoinColumn(name = "id_libreta",referencedColumnName = "id_libreta")
-    @JsonIgnore
-    private Libreta_final libretaFinal;
 
     @OneToOne
     @JoinColumn(name = "id_detalle",referencedColumnName = "id_detalle")
