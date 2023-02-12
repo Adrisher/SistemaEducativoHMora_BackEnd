@@ -13,4 +13,5 @@ public interface UsuarioService {
     public Optional<Usuario> buscarPorId(Long id);
     public Usuario guardar(Usuario usuario);
     public void borrarPorId(Long id);
+    public Optional<Usuario> buscarPorUsername(String username);
 }

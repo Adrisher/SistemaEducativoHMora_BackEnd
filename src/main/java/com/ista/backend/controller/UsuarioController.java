@@ -28,8 +28,12 @@ public class UsuarioController {
         this.profesorService = profesorService;
     }
 
-    @PostMapping("/ingresar")
+    @PostMapping("/registro")
     public ResponseEntity<?> registrar(@RequestBody Usuario usuario){
+        Optional<Usuario> oUsuario =this.usuarioService.buscarPorUsername(usuario.getNombreUsuario());
+        if (oUsuario.isPresent()){
+            throw new SistemaEducativoExceptions("Usuario ya registrado",HttpStatus.FOUND);
+        }
         Optional<Profesor> oProfesor=this.profesorService.existsByCedula(usuario.getNombreUsuario());
         if (oProfesor.isEmpty()){
             Optional<Estudiante> oEstudiante=this.estudianteService.buscarPorCedula(usuario.getNombreUsuario());
@@ -48,5 +52,19 @@ public class UsuarioController {
         oProfesor.get().setUsuario(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.guardar(usuario));
     }
+
+    @PostMapping("/ingreso")
+    public ResponseEntity<?> ingresar(@RequestBody Usuario usuario){
+        Optional<Usuario> oUsuario =this.usuarioService.buscarPorUsername(usuario.getNombreUsuario());
+        if (oUsuario.isEmpty()){
+            throw new SistemaEducativoExceptions("Usuario no Registrado",HttpStatus.NOT_FOUND);
+        }
+        if(oUsuario.get().getContraseña().equals(usuario.getContraseña())){
+            return ResponseEntity.ok(oUsuario);
+        }else{
+            throw new SistemaEducativoExceptions("Contraseña Erronea",HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
 
 }

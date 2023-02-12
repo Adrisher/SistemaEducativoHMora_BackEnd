@@ -48,4 +48,9 @@ public class UsuarioServiceImpl implements UsuarioService{
         this.usuarioRepository.deleteById(id);
 
     }
+
+    @Override
+    public Optional<Usuario> buscarPorUsername(String username) {
+        return this.usuarioRepository.findByNombreUsuario(username);
+    }
 }
