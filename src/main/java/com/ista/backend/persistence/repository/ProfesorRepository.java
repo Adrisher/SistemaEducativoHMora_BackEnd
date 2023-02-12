@@ -12,4 +12,5 @@ public interface ProfesorRepository extends JpaRepository<Profesor,Long> {
     public List<Profesor> findAllByGenero(SexoStatus genero);
 
     public Optional<Profesor> findByCedula(String cedula);
+    Optional<Profesor> existsByCedula (String cedula);
 }

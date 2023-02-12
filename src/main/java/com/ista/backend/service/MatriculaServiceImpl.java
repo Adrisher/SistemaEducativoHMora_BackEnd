@@ -36,10 +36,6 @@ public class MatriculaServiceImpl implements MatriculaService{
         return this.matriculaRepository.findById(id);
     }
 
-    @Override
-    public List<Matricula> listarPorCiclo(CicloStatus status) {
-        return this.matriculaRepository.findAllByCiclo(status);
-    }
 
     @Override
     public Matricula guardar(Matricula matricula) {

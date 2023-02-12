@@ -54,7 +54,7 @@ public class RepresentanteController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/actualizarProfesor/{id}")
+    @PutMapping("/actualizarRepresentante/{id}")
     public ResponseEntity<?> actualizar(@RequestBody ActRepresentanteDTO act,@PathVariable("id")Long id){
         Optional<Representante> representanteAct=this.representanteService.buscarPorId(id);
         if (!representanteAct.isPresent()){

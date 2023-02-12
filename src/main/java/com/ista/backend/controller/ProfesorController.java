@@ -82,6 +82,13 @@ public class ProfesorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesorAct.get()));
     }
 
-
+    @GetMapping("/buscarCedula/{cedula}")
+    public ResponseEntity<?> buscarCedula(@PathVariable(value="cedula")String cedula){
+        Optional<Profesor> oProfesor=this.profesorService.existsByCedula(cedula);
+        if (!oProfesor.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(oProfesor);
+    }
 
 }

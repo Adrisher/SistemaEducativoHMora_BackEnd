@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface MatriculaRepository extends JpaRepository<Matricula,Long> {
 
-    public List<Matricula> findAllByCiclo(CicloStatus ciclo);
 }

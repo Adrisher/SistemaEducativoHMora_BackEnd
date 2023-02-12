@@ -15,5 +15,8 @@ public interface EstudianteRepository extends JpaRepository<Estudiante,Long> {
 
     List<Estudiante> findAllByRepresentante(Long representanteId);
 
+    public boolean existsById(Long id);
+    boolean existsByCedula (String cedula);
+
 
 }

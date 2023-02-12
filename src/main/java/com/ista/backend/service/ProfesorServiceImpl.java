@@ -60,8 +60,6 @@ public class ProfesorServiceImpl implements ProfesorService {
         return this.profesorRepository.save(profesor);
     }
 
-
-
     @Override
     public void borrarPorId(Long id) {
         Optional<Profesor> optional=this.profesorRepository.findById(id);
@@ -88,6 +86,10 @@ public class ProfesorServiceImpl implements ProfesorService {
         return this.profesorRepository.existsById(id);
     }
 
+    @Override
+    public Optional<Profesor> existsByCedula(String cedula) {
+        return this.profesorRepository.findByCedula(cedula);
+    }
 
 
 }

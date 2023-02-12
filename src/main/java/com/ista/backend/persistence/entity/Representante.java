@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ista.backend.persistence.enums.SexoStatus;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -39,8 +41,6 @@ public class Representante implements Serializable {
 	private String ocupacion;
 	private String telefonoContacto;
 	private String telefonoContacto2;
-
-
 
 	@OneToMany(mappedBy = "representante",cascade = CascadeType.ALL)
 	@JsonIgnore

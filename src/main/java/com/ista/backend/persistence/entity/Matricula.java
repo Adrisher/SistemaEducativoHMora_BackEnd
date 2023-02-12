@@ -4,8 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ista.backend.persistence.enums.CicloStatus;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Data
@@ -20,11 +25,10 @@ public class Matricula implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_matricula;
 
-    private CicloStatus ciclo;
 
-    @Column(name="fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    @Column(name="fecha",updatable = false)
+    @CreationTimestamp
+    private LocalDateTime fecha;
 
     private String observaciones;
 
@@ -43,10 +47,11 @@ public class Matricula implements Serializable {
     @JsonIgnore
     private Curso curso;
 
-
-    @OneToOne
-    @JoinColumn(name = "id_detalle",referencedColumnName = "id_detalle")
+    @OneToMany(mappedBy = "matricula",cascade = CascadeType.ALL)
     @JsonIgnore
-    private Matricula_detalle matriculaDetalle;
+    private List<Matricula_detalle> detalles;
+
+
+
 
 }

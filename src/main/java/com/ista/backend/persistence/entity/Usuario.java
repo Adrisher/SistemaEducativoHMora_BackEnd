@@ -20,6 +20,7 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_usuario;
 
+    @Column(unique = true)
     String nombreUsuario;
     String contraseña;
     CargoStatus rol;

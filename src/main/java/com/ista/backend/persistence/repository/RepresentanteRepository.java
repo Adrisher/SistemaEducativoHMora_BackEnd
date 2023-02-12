@@ -12,4 +12,5 @@ public interface RepresentanteRepository extends JpaRepository<Representante,Lon
    public List<Representante> findAllByGenero(SexoStatus genero);
    public Optional<Representante> findByCedula(String cedula);
    public boolean existsById(Long id);
+   boolean existsByCedula (String cedula);
 }

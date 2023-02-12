@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
-@RequestMapping("/hmora/estudiante")
+@RequestMapping("/hmora/matricula")
 public class MatriculaController {
 
     private final MatriculaService matriculaService;

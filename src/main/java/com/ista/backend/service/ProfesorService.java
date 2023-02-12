@@ -21,6 +21,7 @@ public interface ProfesorService {
     public void uploadFile(InputStream inputStream);
 
     public boolean existsById(Long id);
+    public Optional<Profesor> existsByCedula(String cedula);
 
 
 }

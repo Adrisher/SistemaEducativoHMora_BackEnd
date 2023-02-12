@@ -35,6 +35,11 @@ public class Matricula_detalle implements Serializable {
     @JsonIgnore
     private List<Quimestre> quimestre;
 
+    @ManyToOne
+    @JoinColumn(name = "id_matricula",referencedColumnName = "id_matricula")
+    @JsonIgnore
+    private Matricula matricula;
+
 
 
 }

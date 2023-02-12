@@ -13,7 +13,6 @@ public interface MatriculaService {
     public Iterable<Matricula> listarTodo();
     public Page<Matricula> listarTodo(Pageable pageable);
     public Optional<Matricula> buscarPorId(Long id);
-    public List<Matricula> listarPorCiclo(CicloStatus status);
     public Matricula guardar(Matricula matricula);
     public void borrarPorId(Long id);
 }
