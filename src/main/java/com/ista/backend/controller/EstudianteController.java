@@ -1,5 +1,7 @@
 package com.ista.backend.controller;
 
+import com.ista.backend.context.CedulaValidador;
+import com.ista.backend.exceptions.SistemaEducativoExceptions;
 import com.ista.backend.persistence.entity.Estudiante;
 import com.ista.backend.persistence.entity.Representante;
 import com.ista.backend.persistence.enums.SexoStatus;
@@ -22,6 +24,7 @@ public class EstudianteController {
 
     private final EstudianteService estudianteService;
     private final RepresentanteService representanteService;
+    private  CedulaValidador validador=new CedulaValidador();
 
 
     public EstudianteController(EstudianteService estudianteService, RepresentanteService representanteService) {
@@ -31,7 +34,10 @@ public class EstudianteController {
 
     @PostMapping("/crear")
     public ResponseEntity<?> crearEstudiante(@RequestBody Estudiante estudiante){
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.estudianteService.guardar(estudiante));
+        if (validador.validadorDeCedula(estudiante.getCedula())){
+            return ResponseEntity.status(HttpStatus.CREATED).body(this.estudianteService.guardar(estudiante));
+        }
+        throw new SistemaEducativoExceptions("cedula no valida ",HttpStatus.NOT_ACCEPTABLE);
     }
 
     @GetMapping("/lista_estudiantes")

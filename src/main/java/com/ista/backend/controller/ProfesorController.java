@@ -1,5 +1,6 @@
 package com.ista.backend.controller;
 
+import com.ista.backend.context.CedulaValidador;
 import com.ista.backend.exceptions.SistemaEducativoExceptions;
 import com.ista.backend.mapper.ProfesorDTOToProfesor;
 import com.ista.backend.persistence.entity.Profesor;
@@ -23,6 +24,7 @@ import java.util.stream.StreamSupport;
 public class ProfesorController {
 
     private final ProfesorService profesorService;
+    private CedulaValidador validador=new CedulaValidador();
 
 
     public ProfesorController(ProfesorService profesorService) {
@@ -40,7 +42,10 @@ public class ProfesorController {
 
     @PostMapping("/crear")
     public ResponseEntity<?> crearProfesor(@RequestBody Profesor profesor){
-        return  ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesor));
+        if (validador.validadorDeCedula(profesor.getCedula())) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesor));
+        }
+        throw new SistemaEducativoExceptions("Cedula no valida",HttpStatus.NOT_ACCEPTABLE);
     }
 
     @GetMapping("/ListarProfesores")
