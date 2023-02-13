@@ -5,12 +5,12 @@ import com.ista.backend.mapper.ProfesorDTOToProfesor;
 import com.ista.backend.persistence.entity.Profesor;
 import com.ista.backend.persistence.enums.SexoStatus;
 import com.ista.backend.persistence.repository.ProfesorRepository;
-import com.ista.backend.service.dto.ProfesorDTO;
 import org.apache.commons.io.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,6 +94,16 @@ public class ProfesorServiceImpl implements ProfesorService {
     @Override
     public Optional<Profesor> existsByCedula(String cedula) {
         return this.profesorRepository.findByCedula(cedula);
+    }
+
+    @Override
+    @Transactional
+    public void darDeBaja(Long id) {
+        Optional<Profesor> oProfesor=this.profesorRepository.findById(id);
+        if (oProfesor.isEmpty()){
+            throw new SistemaEducativoExceptions("id no valida",HttpStatus.NOT_FOUND);
+        }
+        this.profesorRepository.darDeBaja(id);
     }
 
 

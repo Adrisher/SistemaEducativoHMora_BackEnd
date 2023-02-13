@@ -23,6 +23,7 @@ public interface ProfesorService {
 
     public boolean existsById(Long id);
     public Optional<Profesor> existsByCedula(String cedula);
+    public void darDeBaja(Long id);
 
 
 }

@@ -96,4 +96,10 @@ public class ProfesorController {
         return ResponseEntity.ok(oProfesor);
     }
 
+    @PatchMapping("/darDeBaja/{id}")
+    public ResponseEntity<Void> darDeBaja(@PathVariable("id")Long id){
+        this.profesorService.darDeBaja(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
