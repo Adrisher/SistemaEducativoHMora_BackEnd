@@ -40,9 +40,9 @@ public class RepresentanteController {
         return representantes;
     }
 
-    @GetMapping("/buscarId/{id}")
-    public ResponseEntity<?> buscar(@PathVariable(value = "id")Long id){
-        Optional<Representante> oRespresentante= this.representanteService.buscarPorId(id);
+    @GetMapping("/buscarCedula/{cedula}")
+    public ResponseEntity<?> buscar(@PathVariable(value = "cedula")String cedula){
+        Optional<Representante> oRespresentante= this.representanteService.buscarPorCedula(cedula);
         if (!oRespresentante.isPresent()){
             return ResponseEntity.notFound().build();
         }
@@ -60,9 +60,9 @@ public class RepresentanteController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/actualizarRepresentante/{id}")
-    public ResponseEntity<?> actualizar(@RequestBody ActRepresentanteDTO act,@PathVariable("id")Long id){
-        Optional<Representante> representanteAct=this.representanteService.buscarPorId(id);
+    @PutMapping("/actualizarRepresentante/{cedula}")
+    public ResponseEntity<?> actualizar(@RequestBody ActRepresentanteDTO act,@PathVariable("cedula")String cedula){
+        Optional<Representante> representanteAct=this.representanteService.buscarPorCedula(cedula);
         if (!representanteAct.isPresent()){
             return ResponseEntity.notFound().build();
         }

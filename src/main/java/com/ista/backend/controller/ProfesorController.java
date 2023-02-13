@@ -54,9 +54,9 @@ public class ProfesorController {
         return profesores;
     }
 
-    @GetMapping("/buscarId/{id}")
-    public ResponseEntity<?> buscar(@PathVariable(value="id")Long id){
-        Optional<Profesor> oProfesor=this.profesorService.buscarPorId(id);
+    @GetMapping("/buscarId/{cedula}")
+    public ResponseEntity<?> buscar(@PathVariable(value="cedula")String cedula){
+        Optional<Profesor> oProfesor=this.profesorService.buscarPorCedula(cedula);
         if (!oProfesor.isPresent()){
             return ResponseEntity.notFound().build();
         }
@@ -68,15 +68,15 @@ public class ProfesorController {
         return this.profesorService.listarPorGenero(status);
     }
 
-    @DeleteMapping("/borrarLista/{id}")
+    @DeleteMapping("/borrar/{id}")
     public ResponseEntity<Void> borrar(@PathVariable("id")Long id){
         this.profesorService.borrarPorId(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/actualizarProfesor/{id}")
-    public ResponseEntity<?> actualizar(@RequestBody ActProfesorDTO dto,@PathVariable(value="id")Long id){
-        Optional<Profesor> profesorAct=this.profesorService.buscarPorId(id);
+    @PutMapping("/actualizarProfesor/{cedula}")
+    public ResponseEntity<?> actualizar(@RequestBody ActProfesorDTO dto,@PathVariable(value="cedula")String cedula){
+        Optional<Profesor> profesorAct=this.profesorService.buscarPorCedula(cedula);
         if (!profesorAct.isPresent()){
             return ResponseEntity.notFound().build();
         }

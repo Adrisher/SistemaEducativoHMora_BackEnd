@@ -46,9 +46,9 @@ public class EstudianteController {
         return estudiantes;
     }
 
-    @GetMapping("/buscarId/{id}")
-    public ResponseEntity<?> buscar(@PathVariable(value = "id")Long id){
-        Optional<Estudiante> oEstudiante=this.estudianteService.buscarPorId(id);
+    @GetMapping("/buscarId/{cedula}")
+    public ResponseEntity<?> buscar(@PathVariable(value = "cedula")String cedula){
+        Optional<Estudiante> oEstudiante=this.estudianteService.buscarPorCedula(cedula);
         if (!oEstudiante.isPresent()){
             return ResponseEntity.notFound().build();
         }
@@ -66,9 +66,9 @@ public class EstudianteController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/actualizarEstudiante/{id}")
-    public ResponseEntity<?> actualizar(@RequestBody ActEstudianteDTO act,@PathVariable(value = "id")Long id){
-        Optional<Estudiante> estudianteAct=this.estudianteService.buscarPorId(id);
+    @PutMapping("/actualizarEstudiante/{cedula}")
+    public ResponseEntity<?> actualizar(@RequestBody ActEstudianteDTO act,@PathVariable(value = "cedula")String cedula){
+        Optional<Estudiante> estudianteAct=this.estudianteService.buscarPorCedula(cedula);
         if (!estudianteAct.isPresent()){
             return ResponseEntity.notFound().build();
         }
@@ -78,10 +78,10 @@ public class EstudianteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.estudianteService.guardar(estudianteAct.get()));
     }
 
-    @PostMapping("/CrearEstudiantePorRepresentante/{id_representante}/estudiantes")
-    public ResponseEntity<Estudiante> crearEstudiante(@PathVariable(value = "id_representante")Long id_representante,
+    @PostMapping("/CrearEstudiantePorRepresentante/{cedula}/estudiantes")
+    public ResponseEntity<Estudiante> crearEstudiante(@PathVariable(value = "cedula")String cedula,
                                                       @RequestBody Estudiante estudiante){
-        Estudiante estudiante1=this.representanteService.buscarPorId(id_representante).map(representante -> {
+        Estudiante estudiante1=this.representanteService.buscarPorCedula(cedula).map(representante -> {
             estudiante.setRepresentante(representante);
             return  this.estudianteService.guardar(estudiante);
         }).orElseThrow();
@@ -90,12 +90,12 @@ public class EstudianteController {
 
     }
 
-    @GetMapping("/Listar estudiantePorRepresentante /{id_representante}/estudiantes")
-    public ResponseEntity<List<Estudiante>> listaEstudiantesPorRepresentante(@PathVariable(value = "id_representante")Long id_representante){
-        if(!this.representanteService.existsById(id_representante)){
+    @GetMapping("/Listar estudiantePorRepresentante /{cedula}/estudiantes")
+    public ResponseEntity<List<Estudiante>> listaEstudiantesPorRepresentante(@PathVariable(value = "cedula")String cedula){
+        if(!this.representanteService.existsByCedula(cedula)){
             throw new OpenApiResourceNotFoundException("no se encontro");
         }
-        Optional<Representante> represet=representanteService.buscarPorId(id_representante);
+        Optional<Representante> represet=representanteService.buscarPorCedula(cedula);
 
         List<Estudiante> estudiantes=represet.get().getEstudiantes();
         return new ResponseEntity<>(estudiantes,HttpStatus.OK);

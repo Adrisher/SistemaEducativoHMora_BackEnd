@@ -2,7 +2,6 @@ package com.ista.backend.context;
 
 
 public class CedulaValidador {
-    private  final String CEDULA_PATTERN = "^[0-9]{10}$";
 
     public boolean validadorDeCedula(String cedula) {
         boolean cedulaCorrecta = false;

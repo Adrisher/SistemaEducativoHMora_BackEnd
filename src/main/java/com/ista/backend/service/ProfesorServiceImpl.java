@@ -51,6 +51,11 @@ public class ProfesorServiceImpl implements ProfesorService {
     }
 
     @Override
+    public Optional<Profesor> buscarPorCedula(String cedula){
+        return this.profesorRepository.findByCedula(cedula);
+    }
+
+    @Override
     public List<Profesor> listarPorGenero(SexoStatus status) {
         return this.profesorRepository.findAllByGenero(status);
     }

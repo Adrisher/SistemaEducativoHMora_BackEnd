@@ -15,6 +15,7 @@ public interface ProfesorService {
     public Iterable<Profesor> listarTodo();
     public Page<Profesor> listarTodo(Pageable pageable);
     public Optional<Profesor> buscarPorId(Long id);
+    Optional<Profesor> buscarPorCedula(String cedula);
     public List<Profesor> listarPorGenero(SexoStatus status);
     public Profesor guardar(Profesor profesor);
     public void borrarPorId(Long id);

@@ -18,5 +18,5 @@ public interface RepresentanteService {
     public Representante guardar(Representante representante);
     public void borrarPorId(Long id);
 
-    public boolean existsById(Long id);
+    public boolean existsByCedula(String cedula);
 }

@@ -61,7 +61,7 @@ public class RepresentanteServiceImpl implements RepresentanteService{
     }
 
     @Override
-    public boolean existsById(Long id){
-        return this.representanteRepository.existsById(id);
+    public boolean existsByCedula(String cedula){
+        return this.representanteRepository.existsByCedula(cedula);
     }
 }
