@@ -43,7 +43,11 @@ public class ProfesorController {
     @PostMapping("/crear")
     public ResponseEntity<?> crearProfesor(@RequestBody Profesor profesor){
         if (validador.validadorDeCedula(profesor.getCedula())) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesor));
+            Optional<Profesor> oProfesor=this.profesorService.buscarPorCedula(profesor.getCedula());
+            if (!oProfesor.isPresent()){
+                return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorService.guardar(profesor));
+            }
+            throw new SistemaEducativoExceptions("Usuario ya registrado",HttpStatus.FOUND);
         }
         throw new SistemaEducativoExceptions("Cedula no valida",HttpStatus.NOT_ACCEPTABLE);
     }

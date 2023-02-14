@@ -15,4 +15,7 @@ public interface ProfesorCursoMateriaService {
     public ProfesorCursoMateria guardar(ProfesorCursoMateria profesorCursoMateria);
     public void borrarPorId(Long id);
 
+    public List<ProfesorCursoMateria> buscarPorProfesor(String cedula);
+
+    public List<?> listarCursoMateriaPorProfesor(String cedula);
 }

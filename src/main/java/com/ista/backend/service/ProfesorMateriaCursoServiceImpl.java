@@ -1,22 +1,31 @@
 package com.ista.backend.service;
 
 import com.ista.backend.exceptions.SistemaEducativoExceptions;
+import com.ista.backend.persistence.entity.Curso;
+import com.ista.backend.persistence.entity.Materia;
+import com.ista.backend.persistence.entity.Profesor;
 import com.ista.backend.persistence.entity.ProfesorCursoMateria;
 import com.ista.backend.persistence.repository.ProfesorCursoMateriaRepository;
+import com.ista.backend.persistence.repository.ProfesorRepository;
+import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProfesorMateriaCursoServiceImpl implements ProfesorCursoMateriaService{
 
     private final ProfesorCursoMateriaRepository repository;
+    private final ProfesorRepository profesorRepository;
 
-    public ProfesorMateriaCursoServiceImpl(ProfesorCursoMateriaRepository repository) {
+    public ProfesorMateriaCursoServiceImpl(ProfesorCursoMateriaRepository repository, ProfesorRepository profesorRepository) {
         this.repository = repository;
+        this.profesorRepository = profesorRepository;
     }
 
     @Override
@@ -47,4 +56,35 @@ public class ProfesorMateriaCursoServiceImpl implements ProfesorCursoMateriaServ
         }
         this.repository.deleteById(id);
     }
+
+    @Override
+    public List<ProfesorCursoMateria> buscarPorProfesor(String cedula) {
+        Optional<Profesor> oProfesor=this.profesorRepository.findByCedula(cedula);
+        Profesor profesor=oProfesor.get();
+        return this.repository.findByProfesor(profesor);
+    }
+
+    @Override
+    public List<CursoMateria> listarCursoMateriaPorProfesor(String cedula) {
+        Optional<Profesor> oProfesor=this.profesorRepository.findByCedula(cedula);
+        Profesor profesor=oProfesor.get();
+        List<ProfesorCursoMateria> detalles=this.repository.findByProfesor(profesor);
+        List<CursoMateria> atributos =new ArrayList<>();
+        for (ProfesorCursoMateria detalle:detalles){
+           atributos.add(new CursoMateria(detalle.getCurso(),detalle.getMateria()));
+        }
+        return atributos;
+    }
+
+    @Data
+    class CursoMateria{
+        private final Curso curso;
+        private final Materia materia;
+
+        CursoMateria(Curso curso, Materia materia) {
+            this.curso = curso;
+            this.materia = materia;
+        }
+    }
+
 }

@@ -2,6 +2,8 @@ package com.ista.backend.controller;
 
 import com.ista.backend.persistence.entity.Curso;
 import com.ista.backend.persistence.entity.Profesor;
+import com.ista.backend.persistence.enums.CicloStatus;
+import com.ista.backend.persistence.enums.ParaleloStatus;
 import com.ista.backend.service.CursoService;
 import com.ista.backend.service.ProfesorService;
 import org.springdoc.api.OpenApiResourceNotFoundException;
@@ -26,8 +28,12 @@ public class CursoController {
         this.profesorService = profesorService;
     }
 
-    @PostMapping("/crearCurso")
-    public ResponseEntity<?> crearCurso(@RequestBody Curso curso){
+    @PostMapping("/crearCurso/{cicloStatus}/{paraleloStatus}")
+    public ResponseEntity<?> crearCurso(@PathVariable("cicloStatus") CicloStatus cicloStatus,
+                                        @PathVariable("paraleloStatus")ParaleloStatus paraleloStatus){
+        Curso curso=new Curso();
+        curso.setCiclo(cicloStatus);
+        curso.setParalelo(paraleloStatus);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.cursoService.guardar(curso));
     }
 

@@ -2,13 +2,18 @@ package com.ista.backend.service;
 
 import com.ista.backend.exceptions.SistemaEducativoExceptions;
 import com.ista.backend.persistence.entity.Materia;
+import com.ista.backend.persistence.enums.MateriaStatus;
 import com.ista.backend.persistence.repository.MateriaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class MateriaServiceImpl implements MateriaService{
@@ -48,4 +53,12 @@ public class MateriaServiceImpl implements MateriaService{
         this.materiaRepository.deleteById(id);
 
     }
+
+    @Override
+    public Optional<Materia> buscarPorMateria(MateriaStatus status) {
+        return this.materiaRepository.findByMateriaStatus(status);
+    }
+
+
+
 }

@@ -27,10 +27,15 @@ public class Curso implements Serializable {
     private Long id_curso;
 
     private Integer cupo;
+
     private CicloStatus ciclo;
     private ParaleloStatus paralelo;
 
-    @OneToMany(mappedBy = "curso")
+    @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Matricula> matriculas;
+
+    @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ProfesorCursoMateria> profesorCursoMaterias;
 }

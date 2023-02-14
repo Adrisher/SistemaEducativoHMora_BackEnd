@@ -29,7 +29,11 @@ public class RepresentanteController {
     @PostMapping("/crear")
     public ResponseEntity<?> crearRepresentante(@RequestBody Representante representante){
            if (validador.validadorDeCedula(representante.getCedula())) {
-               return ResponseEntity.status(HttpStatus.CREATED).body(this.representanteService.guardar(representante));
+               Optional<Representante> oRepresentante=this.representanteService.buscarPorCedula(representante.getCedula());
+               if (!oRepresentante.isPresent()){
+                   return ResponseEntity.status(HttpStatus.CREATED).body(this.representanteService.guardar(representante));
+               }
+               throw new SistemaEducativoExceptions("Usuario ya registrado",HttpStatus.FOUND);
            }
            throw new SistemaEducativoExceptions("Cedula no valida",HttpStatus.NOT_ACCEPTABLE);
     }
