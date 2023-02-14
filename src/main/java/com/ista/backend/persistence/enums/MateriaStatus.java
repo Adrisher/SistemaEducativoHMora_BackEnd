@@ -7,5 +7,5 @@ public enum MateriaStatus {
     Ciencias_Sociales,
     Lengua_Literatura,
     Matematica,
-   Ingles
+    Ingles
 }

@@ -2,6 +2,7 @@ package com.ista.backend.service;
 
 import com.ista.backend.exceptions.SistemaEducativoExceptions;
 import com.ista.backend.persistence.entity.Curso;
+import com.ista.backend.persistence.enums.CicloStatus;
 import com.ista.backend.persistence.enums.ParaleloStatus;
 import com.ista.backend.persistence.repository.CursoRepository;
 import org.springframework.data.domain.Page;
@@ -38,7 +39,7 @@ public class CursoServiceImpl implements CursoService{
     }
 
     @Override
-    public List<Curso> buscarPorParalelo(ParaleloStatus status) {
+    public List<Curso> listarPorParalelo(ParaleloStatus status) {
         return this.cursoRepository.findAllByParalelo(status);
     }
 
@@ -55,5 +56,20 @@ public class CursoServiceImpl implements CursoService{
             throw new SistemaEducativoExceptions("curso no encontrada", HttpStatus.NOT_FOUND);
         }
         this.cursoRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Curso> buscarPorCiclo(CicloStatus status) {
+        return this.cursoRepository.findByCiclo(status);
+    }
+
+    @Override
+    public Optional<Curso> buscarPorParalelo(ParaleloStatus status) {
+        return this.cursoRepository.findByParalelo(status);
+    }
+
+    @Override
+    public Optional<Curso> buscarPorCicloParalelo(CicloStatus cicloStatus, ParaleloStatus paralelo) {
+        return this.cursoRepository.findByCicloAndParalelo(cicloStatus,paralelo);
     }
 }

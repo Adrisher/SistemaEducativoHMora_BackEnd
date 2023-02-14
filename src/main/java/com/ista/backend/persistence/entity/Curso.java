@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "curso")
+@Table(name = "curso",uniqueConstraints=@UniqueConstraint(columnNames = {"ciclo","paralelo"}) )
 public class Curso implements Serializable {
 
     /**
@@ -29,6 +29,7 @@ public class Curso implements Serializable {
     private Integer cupo;
 
     private CicloStatus ciclo;
+
     private ParaleloStatus paralelo;
 
     @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL)

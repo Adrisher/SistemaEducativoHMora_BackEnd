@@ -1,6 +1,10 @@
 package com.ista.backend.service;
 
+import com.ista.backend.persistence.entity.Curso;
+import com.ista.backend.persistence.entity.Materia;
+import com.ista.backend.persistence.entity.Profesor;
 import com.ista.backend.persistence.entity.ProfesorCursoMateria;
+import com.ista.backend.persistence.enums.CicloStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +19,12 @@ public interface ProfesorCursoMateriaService {
     public ProfesorCursoMateria guardar(ProfesorCursoMateria profesorCursoMateria);
     public void borrarPorId(Long id);
 
-    public List<ProfesorCursoMateria> buscarPorProfesor(String cedula);
+    public List<ProfesorCursoMateria> listarPorProfesor(String cedula);
 
     public List<?> listarCursoMateriaPorProfesor(String cedula);
+    public Optional<ProfesorCursoMateria> buscarPorCiclo(CicloStatus status);
+
+    public Optional<ProfesorCursoMateria> buscarProfesorCursoMateria(Profesor profesor,
+                                                                     Curso curso,
+                                                                     Materia materia);
 }

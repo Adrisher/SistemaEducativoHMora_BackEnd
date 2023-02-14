@@ -5,6 +5,8 @@ import com.ista.backend.persistence.entity.Curso;
 import com.ista.backend.persistence.entity.Materia;
 import com.ista.backend.persistence.entity.Profesor;
 import com.ista.backend.persistence.entity.ProfesorCursoMateria;
+import com.ista.backend.persistence.enums.CicloStatus;
+import com.ista.backend.persistence.repository.CursoRepository;
 import com.ista.backend.persistence.repository.ProfesorCursoMateriaRepository;
 import com.ista.backend.persistence.repository.ProfesorRepository;
 import lombok.Data;
@@ -22,10 +24,12 @@ public class ProfesorMateriaCursoServiceImpl implements ProfesorCursoMateriaServ
 
     private final ProfesorCursoMateriaRepository repository;
     private final ProfesorRepository profesorRepository;
+    private final CursoRepository cursoRepository;
 
-    public ProfesorMateriaCursoServiceImpl(ProfesorCursoMateriaRepository repository, ProfesorRepository profesorRepository) {
+    public ProfesorMateriaCursoServiceImpl(ProfesorCursoMateriaRepository repository, ProfesorRepository profesorRepository, CursoRepository cursoRepository) {
         this.repository = repository;
         this.profesorRepository = profesorRepository;
+        this.cursoRepository = cursoRepository;
     }
 
     @Override
@@ -58,7 +62,7 @@ public class ProfesorMateriaCursoServiceImpl implements ProfesorCursoMateriaServ
     }
 
     @Override
-    public List<ProfesorCursoMateria> buscarPorProfesor(String cedula) {
+    public List<ProfesorCursoMateria> listarPorProfesor(String cedula) {
         Optional<Profesor> oProfesor=this.profesorRepository.findByCedula(cedula);
         Profesor profesor=oProfesor.get();
         return this.repository.findByProfesor(profesor);
@@ -75,6 +79,19 @@ public class ProfesorMateriaCursoServiceImpl implements ProfesorCursoMateriaServ
         }
         return atributos;
     }
+
+    @Override
+    public Optional<ProfesorCursoMateria> buscarPorCiclo(CicloStatus status) {
+        //Optional<Curso> curso=this.cursoRepository.fin
+        //return this.repository.findByCursoAnd();
+        return null;
+    }
+
+    @Override
+    public Optional<ProfesorCursoMateria> buscarProfesorCursoMateria(Profesor profesor, Curso curso, Materia materia) {
+        return this.repository.findByProfesorAndCursoAndMateria(profesor,curso,materia);
+    }
+
 
     @Data
     class CursoMateria{

@@ -7,9 +7,16 @@ import com.ista.backend.persistence.entity.ProfesorCursoMateria;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProfesorCursoMateriaRepository extends JpaRepository<ProfesorCursoMateria,Long> {
 
     public List<ProfesorCursoMateria> findByProfesor(Profesor profesor);
+    public Optional<Profesor> findByProfesor_Cedula(Profesor profesorq);
+    public Optional<ProfesorCursoMateria> findByProfesorAndCursoAndMateria(Profesor profesor,
+                                                                           Curso curso,
+                                                                           Materia materia);
+
+
 
 }

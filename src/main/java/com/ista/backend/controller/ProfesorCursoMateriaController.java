@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/hmora/materiaCursoProfesor")
@@ -42,35 +44,78 @@ public class ProfesorCursoMateriaController {
                                                                       @PathVariable("cicloStatus") CicloStatus cicloStatus,
                                                                       @PathVariable("paraleloStatus") ParaleloStatus paraleloStatus,
                                                                       @PathVariable("materiaStatus")MateriaStatus materiaStatus){
-        ProfesorCursoMateria profesorCursoMateria= new ProfesorCursoMateria();
-
-        Optional<Profesor> profesor=this.profesorService.buscarPorCedula(cedulaProfesor);
-        if (profesor.isEmpty()){
-            throw new SistemaEducativoExceptions("Profesor no encontrado",HttpStatus.NOT_FOUND);
-        }
-        Profesor profesor1=profesor.get();
-
-        Curso curso=new Curso();
-        curso.setCiclo(cicloStatus);
-        curso.setParalelo(paraleloStatus);
-        cursoService.guardar(curso);
-
-        Materia materia=new Materia();
-        materia.setMateriaStatus(materiaStatus);
-        materiaService.guardar(materia);
 
 
-         profesorCursoMateria.setCurso(curso);
-         profesorCursoMateria.setMateria(materia);
-         profesorCursoMateria.setProfesor(profesor1);
-        this.profesorCursoMateriaService.guardar(profesorCursoMateria);
-        return new ResponseEntity<>(profesorCursoMateria, HttpStatus.CREATED);
+            ProfesorCursoMateria profesorCursoMateria = new ProfesorCursoMateria();
+
+            Optional<Profesor> profesor = this.profesorService.buscarPorCedula(cedulaProfesor);
+            if (profesor.isEmpty()) {
+                throw new SistemaEducativoExceptions("Profesor no encontrado", HttpStatus.NOT_FOUND);
+            }
+            Profesor profesor1 = profesor.get();
+
+
+            Optional<Materia> oMateria = this.materiaService.buscarPorMateria(materiaStatus);
+            if (!oMateria.isPresent()) {
+                throw new SistemaEducativoExceptions("No existe materia", HttpStatus.NOT_FOUND);
+            }
+            Materia materia = oMateria.get();
+
+            Optional<Curso> oCurso = this.cursoService.buscarPorCicloParalelo(cicloStatus, paraleloStatus);
+            Curso curso = new Curso();
+            if (oCurso.isEmpty()) {
+                curso.setCiclo(cicloStatus);
+                curso.setParalelo(paraleloStatus);
+                this.cursoService.guardar(curso);
+                    profesorCursoMateria.setCurso(curso);
+                    profesorCursoMateria.setMateria(materia);
+                    profesorCursoMateria.setProfesor(profesor1);
+                    this.profesorCursoMateriaService.guardar(profesorCursoMateria);
+                    return new ResponseEntity<>(profesorCursoMateria, HttpStatus.CREATED);
+
+            }
+            Optional<ProfesorCursoMateria> oProfesorCursoMateria=this.profesorCursoMateriaService.buscarProfesorCursoMateria(profesor.get(),oCurso.get(),oMateria.get());
+            if (oProfesorCursoMateria.isEmpty()){
+                curso = oCurso.get();
+                profesorCursoMateria.setCurso(curso);
+                profesorCursoMateria.setMateria(materia);
+                profesorCursoMateria.setProfesor(profesor1);
+                this.profesorCursoMateriaService.guardar(profesorCursoMateria);
+                return new ResponseEntity<>(profesorCursoMateria, HttpStatus.CREATED);
+            }
+           throw new SistemaEducativoExceptions("Errot",HttpStatus.NOT_FOUND);
+
+
     }
 
     @GetMapping("ListarCursosMateriaPorProfesor/{cedula}")
     public List<?> listarCursos(@PathVariable("cedula")String cedula){
         return this.profesorCursoMateriaService.listarCursoMateriaPorProfesor(cedula);
     }
+
+   @GetMapping("obtener/{cedulaProfesor}/{cicloStatus}/{paraleloStatus}/{materiaStatus}")
+    public ResponseEntity<?> obtener(@PathVariable(value = "cedulaProfesor")String cedulaProfesor,
+                                                  @PathVariable("cicloStatus") CicloStatus cicloStatus,
+                                                  @PathVariable("paraleloStatus") ParaleloStatus paraleloStatus,
+                                                  @PathVariable("materiaStatus")MateriaStatus materiaStatus){
+        Optional<Profesor> oProfesor=this.profesorService.buscarPorCedula(cedulaProfesor);
+        Optional<Curso> oCurso=this.cursoService.buscarPorCicloParalelo(cicloStatus,paraleloStatus);
+        Optional<Materia> oMateria=this.materiaService.buscarPorMateria(materiaStatus);
+
+
+        if(!oProfesor.isEmpty()&&!oCurso.isEmpty()&&!oMateria.isEmpty()){
+            Optional<ProfesorCursoMateria> oProfesorCursoMateria=this.profesorCursoMateriaService.buscarProfesorCursoMateria(oProfesor.get(),oCurso.get(),oMateria.get());
+            return ResponseEntity.ok(oProfesorCursoMateria);
+        }
+       throw new SistemaEducativoExceptions("datos no encontrados",HttpStatus.NOT_FOUND);
+   }
+
+   @GetMapping("/listar")
+    public List<ProfesorCursoMateria> listarTodo(){
+        List<ProfesorCursoMateria> profesorCursoMaterias= StreamSupport.stream(this.profesorCursoMateriaService.listarTodo().spliterator(),false).collect(Collectors.toList());
+        return profesorCursoMaterias;
+   }
+
 
 
 

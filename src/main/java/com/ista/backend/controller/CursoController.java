@@ -1,5 +1,6 @@
 package com.ista.backend.controller;
 
+import com.ista.backend.exceptions.SistemaEducativoExceptions;
 import com.ista.backend.persistence.entity.Curso;
 import com.ista.backend.persistence.entity.Profesor;
 import com.ista.backend.persistence.enums.CicloStatus;
@@ -31,16 +32,31 @@ public class CursoController {
     @PostMapping("/crearCurso/{cicloStatus}/{paraleloStatus}")
     public ResponseEntity<?> crearCurso(@PathVariable("cicloStatus") CicloStatus cicloStatus,
                                         @PathVariable("paraleloStatus")ParaleloStatus paraleloStatus){
-        Curso curso=new Curso();
-        curso.setCiclo(cicloStatus);
-        curso.setParalelo(paraleloStatus);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.cursoService.guardar(curso));
+        Optional<Curso> oCurso=this.cursoService.buscarPorCicloParalelo(cicloStatus, paraleloStatus);
+        if (!oCurso.isPresent()){
+            Curso curso=new Curso();
+            curso.setCiclo(cicloStatus);
+            curso.setParalelo(paraleloStatus);
+            return ResponseEntity.status(HttpStatus.CREATED).body(this.cursoService.guardar(curso));
+        }
+        throw new SistemaEducativoExceptions("Error el curso y paralelo ya existe",HttpStatus.NOT_ACCEPTABLE);
+
     }
 
     @GetMapping("/listarCursos")
     public List<Curso> lsitarTodo(){
         List<Curso> cursos= StreamSupport.stream(this.cursoService.listarTodo().spliterator(),false).collect(Collectors.toList());
         return cursos;
+    }
+
+    @GetMapping("listarPorCicloStatus/{ciclo}/{paralelo}")
+    public ResponseEntity<?> buscar(@PathVariable("ciclo")CicloStatus ciclo,
+                                    @PathVariable("paralelo")ParaleloStatus paralelo){
+        Optional<Curso> oCurso=this.cursoService.buscarPorCicloParalelo(ciclo, paralelo);
+        if (!oCurso.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(oCurso);
     }
 
 

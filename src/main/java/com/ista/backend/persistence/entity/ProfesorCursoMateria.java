@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "profesor_curso_materia")
+@Table(name = "profesor_curso_materia",uniqueConstraints=@UniqueConstraint(columnNames = {"id_profesor","id_curso","id_materia"}))
 public class ProfesorCursoMateria implements Serializable {
 
     /**
