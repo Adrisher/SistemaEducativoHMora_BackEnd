@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface ProfesorCursoMateriaRepository extends JpaRepository<ProfesorCursoMateria,Long> {
 
-    public List<ProfesorCursoMateria> findByProfesor(Profesor profesor);
-    public Optional<Profesor> findByProfesor_Cedula(Profesor profesorq);
+    public Optional<ProfesorCursoMateria> findByProfesor(Profesor profesor);
+
     public Optional<ProfesorCursoMateria> findByProfesorAndCursoAndMateria(Profesor profesor,
                                                                            Curso curso,
                                                                            Materia materia);

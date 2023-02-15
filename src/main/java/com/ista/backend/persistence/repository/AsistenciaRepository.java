@@ -9,5 +9,5 @@ import java.util.List;
 public interface AsistenciaRepository extends JpaRepository<Asistencia,Long> {
 
     //mostrar Asistencia por estado ASISTE, NO_ASISTE
-    public List<Asistencia> findAllByAsistencia(AsistenciaStatus estado);
+    public List<Asistencia> findAllByPresente(AsistenciaStatus estado);
 }

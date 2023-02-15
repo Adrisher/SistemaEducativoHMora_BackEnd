@@ -23,12 +23,13 @@ public class Asistencia {
     private Long id;
 
     private CicloStatus curso;
+    private Integer faltas;
 
     @Column(name="fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
-    private AsistenciaStatus asistencia;
+    private AsistenciaStatus presente;
 
     @ManyToOne
     @JoinColumn(name = "id_estudiante",referencedColumnName = "id_estudiante")

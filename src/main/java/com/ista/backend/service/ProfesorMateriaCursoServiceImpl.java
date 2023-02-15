@@ -13,6 +13,7 @@ import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,6 +49,11 @@ public class ProfesorMateriaCursoServiceImpl implements ProfesorCursoMateriaServ
     }
 
     @Override
+    public Optional<ProfesorCursoMateria> buscarPorProfesor(Profesor profesor) {
+        return this.repository.findByProfesor(profesor);
+    }
+
+    @Override
     public ProfesorCursoMateria guardar(ProfesorCursoMateria profesorCursoMateria) {
         return this.repository.save(profesorCursoMateria);
     }
@@ -62,46 +68,10 @@ public class ProfesorMateriaCursoServiceImpl implements ProfesorCursoMateriaServ
     }
 
     @Override
-    public List<ProfesorCursoMateria> listarPorProfesor(String cedula) {
-        Optional<Profesor> oProfesor=this.profesorRepository.findByCedula(cedula);
-        Profesor profesor=oProfesor.get();
-        return this.repository.findByProfesor(profesor);
-    }
-
-    @Override
-    public List<CursoMateria> listarCursoMateriaPorProfesor(String cedula) {
-        Optional<Profesor> oProfesor=this.profesorRepository.findByCedula(cedula);
-        Profesor profesor=oProfesor.get();
-        List<ProfesorCursoMateria> detalles=this.repository.findByProfesor(profesor);
-        List<CursoMateria> atributos =new ArrayList<>();
-        for (ProfesorCursoMateria detalle:detalles){
-           atributos.add(new CursoMateria(detalle.getCurso(),detalle.getMateria()));
-        }
-        return atributos;
-    }
-
-    @Override
-    public Optional<ProfesorCursoMateria> buscarPorCiclo(CicloStatus status) {
-        //Optional<Curso> curso=this.cursoRepository.fin
-        //return this.repository.findByCursoAnd();
-        return null;
-    }
-
-    @Override
     public Optional<ProfesorCursoMateria> buscarProfesorCursoMateria(Profesor profesor, Curso curso, Materia materia) {
         return this.repository.findByProfesorAndCursoAndMateria(profesor,curso,materia);
     }
 
 
-    @Data
-    class CursoMateria{
-        private final Curso curso;
-        private final Materia materia;
-
-        CursoMateria(Curso curso, Materia materia) {
-            this.curso = curso;
-            this.materia = materia;
-        }
-    }
 
 }

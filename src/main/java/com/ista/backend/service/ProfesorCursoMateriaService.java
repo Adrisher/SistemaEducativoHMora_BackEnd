@@ -16,14 +16,9 @@ public interface ProfesorCursoMateriaService {
     public Iterable<ProfesorCursoMateria> listarTodo();
     public Page<ProfesorCursoMateria> listarTodo(Pageable pageable);
     public Optional<ProfesorCursoMateria> buscarPorId(Long id);
+    public Optional<ProfesorCursoMateria> buscarPorProfesor(Profesor profesor);
     public ProfesorCursoMateria guardar(ProfesorCursoMateria profesorCursoMateria);
     public void borrarPorId(Long id);
-
-    public List<ProfesorCursoMateria> listarPorProfesor(String cedula);
-
-    public List<?> listarCursoMateriaPorProfesor(String cedula);
-    public Optional<ProfesorCursoMateria> buscarPorCiclo(CicloStatus status);
-
     public Optional<ProfesorCursoMateria> buscarProfesorCursoMateria(Profesor profesor,
                                                                      Curso curso,
                                                                      Materia materia);

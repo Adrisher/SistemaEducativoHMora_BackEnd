@@ -83,14 +83,9 @@ public class ProfesorCursoMateriaController {
                 this.profesorCursoMateriaService.guardar(profesorCursoMateria);
                 return new ResponseEntity<>(profesorCursoMateria, HttpStatus.CREATED);
             }
-           throw new SistemaEducativoExceptions("Errot",HttpStatus.NOT_FOUND);
+           throw new SistemaEducativoExceptions("Error",HttpStatus.NOT_FOUND);
 
 
-    }
-
-    @GetMapping("ListarCursosMateriaPorProfesor/{cedula}")
-    public List<?> listarCursos(@PathVariable("cedula")String cedula){
-        return this.profesorCursoMateriaService.listarCursoMateriaPorProfesor(cedula);
     }
 
    @GetMapping("obtener/{cedulaProfesor}/{cicloStatus}/{paraleloStatus}/{materiaStatus}")
@@ -115,6 +110,8 @@ public class ProfesorCursoMateriaController {
         List<ProfesorCursoMateria> profesorCursoMaterias= StreamSupport.stream(this.profesorCursoMateriaService.listarTodo().spliterator(),false).collect(Collectors.toList());
         return profesorCursoMaterias;
    }
+
+   @PutMapping("")
 
 
 

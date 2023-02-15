@@ -47,7 +47,7 @@ public class AsistenciaServiceImpl implements AsistenciaService{
     @Override
     @Transactional(readOnly=true)
     public List<Asistencia> listarPorAsistencia(AsistenciaStatus status) {
-        return this.asistenciaRepository.findAllByAsistencia(status);
+        return this.asistenciaRepository.findAllByPresente(status);
     }
 
     @Override
