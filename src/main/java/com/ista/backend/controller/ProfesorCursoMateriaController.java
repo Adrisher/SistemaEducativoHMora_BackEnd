@@ -72,7 +72,6 @@ public class ProfesorCursoMateriaController {
                     profesorCursoMateria.setProfesor(profesor1);
                     this.profesorCursoMateriaService.guardar(profesorCursoMateria);
                     return new ResponseEntity<>(profesorCursoMateria, HttpStatus.CREATED);
-
             }
             Optional<ProfesorCursoMateria> oProfesorCursoMateria=this.profesorCursoMateriaService.buscarProfesorCursoMateria(profesor.get(),oCurso.get(),oMateria.get());
             if (oProfesorCursoMateria.isEmpty()){
@@ -83,7 +82,7 @@ public class ProfesorCursoMateriaController {
                 this.profesorCursoMateriaService.guardar(profesorCursoMateria);
                 return new ResponseEntity<>(profesorCursoMateria, HttpStatus.CREATED);
             }
-           throw new SistemaEducativoExceptions("Error",HttpStatus.NOT_FOUND);
+           throw new SistemaEducativoExceptions("Datos ya asignados",HttpStatus.NOT_FOUND);
 
 
     }
@@ -111,7 +110,38 @@ public class ProfesorCursoMateriaController {
         return profesorCursoMaterias;
    }
 
-   @PutMapping("")
+   @PutMapping("/modificarProfesorCursoMateria/porProfesor/{cedula}/{ciclo}/{paralelo}/{materia}/nuevo/{cicloNuevo}/{paraleloNuevo}/{materiaNueva}")
+    public ResponseEntity<?> actualizar(@PathVariable(value = "cedula")String cedula,
+                                        @PathVariable("ciclo") CicloStatus cicloStatus,
+                                        @PathVariable("paralelo") ParaleloStatus paraleloStatus,
+                                        @PathVariable("materia")MateriaStatus materiaStatus,
+                                        @PathVariable("cicloNuevo") CicloStatus cicloNuevo,
+                                        @PathVariable("paraleloNuevo") ParaleloStatus paraleloNuevo,
+                                        @PathVariable("materiaNueva")MateriaStatus materiaNueva){
+       Optional<Profesor> oProfesor=this.profesorService.buscarPorCedula(cedula);
+       Optional<Curso> oCurso=this.cursoService.buscarPorCicloParalelo(cicloStatus,paraleloStatus);
+       Optional<Materia> oMateria=this.materiaService.buscarPorMateria(materiaStatus);
+
+
+       if(!oProfesor.isEmpty()&&!oCurso.isEmpty()&&!oMateria.isEmpty()){
+           Optional<ProfesorCursoMateria> oProfesorCursoMateria=this.profesorCursoMateriaService.buscarProfesorCursoMateria(oProfesor.get(),oCurso.get(),oMateria.get());
+           Optional<Materia> optionalMateria=this.materiaService.buscarPorMateria(materiaNueva);
+           Optional<Curso> optionalCurso=this.cursoService.buscarPorCicloParalelo(cicloNuevo,paraleloNuevo);
+           Curso curso=new Curso();
+           if (optionalCurso.isEmpty()) {
+               curso.setCiclo(cicloNuevo);
+               curso.setParalelo(paraleloNuevo);
+               this.cursoService.guardar(curso);
+               oProfesorCursoMateria.get().setMateria(optionalMateria.get());;
+               oProfesorCursoMateria.get().setCurso(curso);
+               return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorCursoMateriaService.guardar(oProfesorCursoMateria.get()));
+           }
+           oProfesorCursoMateria.get().setMateria(optionalMateria.get());;
+           oProfesorCursoMateria.get().setCurso(optionalCurso.get());
+           return ResponseEntity.status(HttpStatus.CREATED).body(this.profesorCursoMateriaService.guardar(oProfesorCursoMateria.get()));
+       }
+       throw new SistemaEducativoExceptions("datos no encontrados",HttpStatus.NOT_FOUND);
+   }
 
 
 

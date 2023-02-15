@@ -25,15 +25,13 @@ public class Materia {
     private MateriaStatus materiaStatus;
     private String descripcion;
 
-
-    @ManyToOne
-    @JoinColumn(name="id_detalle",referencedColumnName = "id_detalle")
-    @JsonIgnore
-    private Matricula_detalle matriculaDetalle;
-
     @OneToMany(mappedBy = "materia",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ProfesorCursoMateria> profesorCursoMaterias;
+
+    @OneToMany(mappedBy = "materia",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Matricula_detalle> matriculaDetalles;
 
 
 

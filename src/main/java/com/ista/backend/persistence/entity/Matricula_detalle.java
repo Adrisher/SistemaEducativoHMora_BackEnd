@@ -22,9 +22,10 @@ public class Matricula_detalle implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_detalle;
 
-    @OneToMany(mappedBy = "matriculaDetalle",cascade= CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "id_materia",referencedColumnName = "id_materia")
     @JsonIgnore
-    private List<Materia> materias;
+    private Materia materia;
 
     private Double supletorio;
     private Double remedial;
@@ -39,6 +40,7 @@ public class Matricula_detalle implements Serializable {
     @JoinColumn(name = "id_matricula",referencedColumnName = "id_matricula")
     @JsonIgnore
     private Matricula matricula;
+
 
 
 
