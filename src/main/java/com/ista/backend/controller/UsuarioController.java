@@ -41,13 +41,13 @@ public class UsuarioController {
                 throw new SistemaEducativoExceptions("NO SE ENCUENTRA REGISTRADO BDE",HttpStatus.NOT_FOUND);
             }
             usuario.setNombreUsuario(oEstudiante.get().getCedula());
-            usuario.setContraseña(usuario.getContraseña());
+            usuario.setPasword(usuario.getPasword());
             usuario.setRol(CargoStatus.ESTUDIANTE);
             oEstudiante.get().setUsuario(usuario);
             return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.guardar(usuario));
         }
         usuario.setNombreUsuario(oProfesor.get().getCedula());
-        usuario.setContraseña(usuario.getContraseña());
+        usuario.setPasword(usuario.getPasword());
         usuario.setRol(CargoStatus.DOCENTE);
         oProfesor.get().setUsuario(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.guardar(usuario));
@@ -59,7 +59,7 @@ public class UsuarioController {
         if (oUsuario.isEmpty()){
             throw new SistemaEducativoExceptions("Usuario no Registrado",HttpStatus.NOT_FOUND);
         }
-        if(oUsuario.get().getContraseña().equals(usuario.getContraseña())){
+        if(oUsuario.get().getPasword().equals(usuario.getPasword())){
             return ResponseEntity.ok(oUsuario);
         }else{
             throw new SistemaEducativoExceptions("Contraseña Erronea",HttpStatus.NOT_ACCEPTABLE);

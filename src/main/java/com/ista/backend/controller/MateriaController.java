@@ -27,7 +27,7 @@ public class MateriaController {
     public ResponseEntity<Void> crear(){
         List<Materia> materias= StreamSupport.stream(this.materiaService.listarTodo().spliterator(),false).collect(Collectors.toList());
         if (!materias.isEmpty()){
-            throw new SistemaEducativoExceptions("Materias Ya existen",HttpStatus.FOUND);
+            throw new SistemaEducativoExceptions("Materias Ya existen \uD83D\uDE31",HttpStatus.FOUND);
         }
         this.materiaService.listarTodo();
         Materia ingles=new Materia();

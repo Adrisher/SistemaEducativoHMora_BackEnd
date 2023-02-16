@@ -44,6 +44,11 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
+    public Optional<Estudiante> buscarPorCedulaRepresentante(String cedula, Representante representante) {
+        return this.estudianteRepository.findByCedulaAndRepresentante(cedula, representante);
+    }
+
+    @Override
     public List<Estudiante> listarPorGenero(SexoStatus status) {
         return this.estudianteRepository.findAllByGenero(status);
     }

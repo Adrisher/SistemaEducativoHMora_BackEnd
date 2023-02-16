@@ -15,6 +15,7 @@ public interface EstudianteService {
     public Page<Estudiante> listarTodo(Pageable pageable);
     public Optional<Estudiante> buscarPorId(Long id);
     public Optional<Estudiante> buscarPorCedula(String cedula);
+    public Optional<Estudiante> buscarPorCedulaRepresentante(String cedula,Representante representante);
     public List<Estudiante> listarPorGenero(SexoStatus status);
     public Estudiante guardar(Estudiante estudiante);
     public void borrarPorId(Long id);

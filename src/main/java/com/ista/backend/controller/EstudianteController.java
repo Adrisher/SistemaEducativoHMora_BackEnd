@@ -85,14 +85,20 @@ public class EstudianteController {
 
     @PostMapping("/CrearEstudiantePorRepresentante/{cedula}/estudiantes")
     public ResponseEntity<Estudiante> crearEstudiante(@PathVariable(value = "cedula")String cedula,
-                                                      @RequestBody Estudiante estudiante){
-        Estudiante estudiante1=this.representanteService.buscarPorCedula(cedula).map(representante -> {
-            estudiante.setRepresentante(representante);
-            return  this.estudianteService.guardar(estudiante);
-        }).orElseThrow();
-
-        return new ResponseEntity<>(estudiante1,HttpStatus.CREATED);
-
+                                                      @RequestBody Estudiante estudiante) {
+        Optional<Representante> oRepresentante=this.representanteService.buscarPorCedula(cedula);
+        if (!oRepresentante.isPresent()){
+            throw new SistemaEducativoExceptions("no existe representante",HttpStatus.NOT_FOUND);
+        }
+        Optional<Estudiante> oEstudiante=this.estudianteService.buscarPorCedulaRepresentante(estudiante.getCedula(),oRepresentante.get());
+        if (!oEstudiante.isPresent()){
+            Estudiante estudiante1 = this.representanteService.buscarPorCedula(cedula).map(representante -> {
+                estudiante.setRepresentante(representante);
+                return this.estudianteService.guardar(estudiante);
+            }).orElseThrow();
+            return new ResponseEntity<>(estudiante1,HttpStatus.CREATED);
+        }
+        throw new SistemaEducativoExceptions("estudiante ya registrado",HttpStatus.FOUND);
     }
 
     @GetMapping("/Listar estudiantePorRepresentante /{cedula}/estudiantes")

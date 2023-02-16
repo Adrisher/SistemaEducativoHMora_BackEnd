@@ -22,6 +22,6 @@ public class Usuario implements Serializable {
 
     @Column(unique = true)
     String nombreUsuario;
-    String contraseña;
+    String pasword;
     CargoStatus rol;
 }
