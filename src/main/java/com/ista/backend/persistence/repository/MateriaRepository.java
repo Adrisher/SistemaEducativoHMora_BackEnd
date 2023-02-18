@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface MateriaRepository extends JpaRepository<Materia,Long> {
 
-    public Optional<Materia> findByMateriaStatus(MateriaStatus materiaStatus);
+    public Optional<Materia> findByMateriaDetalle(MateriaStatus materiaStatus);
 }

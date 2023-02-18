@@ -31,25 +31,25 @@ public class MateriaController {
         }
         this.materiaService.listarTodo();
         Materia ingles=new Materia();
-        ingles.setMateriaStatus(MateriaStatus.Ingles);
+        ingles.setMateriaDetalle(MateriaStatus.Ingles);
         this.materiaService.guardar(ingles);
         Materia matematicas=new Materia();
-        matematicas.setMateriaStatus(MateriaStatus.Matematica);
+        matematicas.setMateriaDetalle(MateriaStatus.Matematica);
         this.materiaService.guardar(matematicas);
         Materia sociales=new Materia();
-        sociales.setMateriaStatus(MateriaStatus.Ciencias_Sociales);
+        sociales.setMateriaDetalle(MateriaStatus.Ciencias_Sociales);
         this.materiaService.guardar(sociales);
         Materia artistica=new Materia();
-        artistica.setMateriaStatus(MateriaStatus.Educacion_Artistica);
+        artistica.setMateriaDetalle(MateriaStatus.Educacion_Artistica);
         this.materiaService.guardar(artistica);
         Materia eduFisica=new Materia();
-        eduFisica.setMateriaStatus(MateriaStatus.Educacion_Fisica);
+        eduFisica.setMateriaDetalle(MateriaStatus.Educacion_Fisica);
         this.materiaService.guardar(eduFisica);
         Materia ciencias=new Materia();
-        ciencias.setMateriaStatus(MateriaStatus.Ciencias_Naturales);
+        ciencias.setMateriaDetalle(MateriaStatus.Ciencias_Naturales);
         this.materiaService.guardar(ciencias);
         Materia lenguaje=new Materia();
-        lenguaje.setMateriaStatus(MateriaStatus.Lengua_Literatura);
+        lenguaje.setMateriaDetalle(MateriaStatus.Lengua_Literatura);
         this.materiaService.guardar(lenguaje);
 
 

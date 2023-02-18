@@ -22,7 +22,7 @@ public class Materia {
     private Long id_materia;
 
     @Column(unique = true)
-    private MateriaStatus materiaStatus;
+    private MateriaStatus materiaDetalle;
     private String descripcion;
 
     @OneToMany(mappedBy = "materia",cascade = CascadeType.ALL)
