@@ -41,9 +41,9 @@ public class ProfesorCursoMateriaController {
 
     @PostMapping("/agregarCursoPorProfesor/{cedulaProfesor}/{cicloStatus}/{paraleloStatus}/{materiaStatus}/curso")
     public ResponseEntity<ProfesorCursoMateria> crearCursoPorProfesor(@PathVariable(value = "cedulaProfesor")String cedulaProfesor,
-                                                                      @PathVariable("cicloStatus") CicloStatus cicloStatus,
-                                                                      @PathVariable("paraleloStatus") ParaleloStatus paraleloStatus,
-                                                                      @PathVariable("materiaStatus")MateriaStatus materiaStatus){
+                                                                      @PathVariable("cicloStatus") String cicloStatus,
+                                                                      @PathVariable("paraleloStatus") String paraleloStatus,
+                                                                      @PathVariable("materiaStatus")String materiaStatus){
 
 
             ProfesorCursoMateria profesorCursoMateria = new ProfesorCursoMateria();
@@ -89,9 +89,9 @@ public class ProfesorCursoMateriaController {
 
    @GetMapping("obtener/{cedulaProfesor}/{cicloStatus}/{paraleloStatus}/{materiaStatus}")
     public ResponseEntity<?> obtener(@PathVariable(value = "cedulaProfesor")String cedulaProfesor,
-                                                  @PathVariable("cicloStatus") CicloStatus cicloStatus,
-                                                  @PathVariable("paraleloStatus") ParaleloStatus paraleloStatus,
-                                                  @PathVariable("materiaStatus")MateriaStatus materiaStatus){
+                                                  @PathVariable("cicloStatus") String cicloStatus,
+                                                  @PathVariable("paraleloStatus") String paraleloStatus,
+                                                  @PathVariable("materiaStatus")String materiaStatus){
         Optional<Profesor> oProfesor=this.profesorService.buscarPorCedula(cedulaProfesor);
         Optional<Curso> oCurso=this.cursoService.buscarPorCicloParalelo(cicloStatus,paraleloStatus);
         Optional<Materia> oMateria=this.materiaService.buscarPorMateria(materiaStatus);
@@ -112,12 +112,12 @@ public class ProfesorCursoMateriaController {
 
    @PutMapping("/modificarProfesorCursoMateria/porProfesor/{cedula}/{ciclo}/{paralelo}/{materia}/nuevo/{cicloNuevo}/{paraleloNuevo}/{materiaNueva}")
     public ResponseEntity<?> actualizar(@PathVariable(value = "cedula")String cedula,
-                                        @PathVariable("ciclo") CicloStatus cicloStatus,
-                                        @PathVariable("paralelo") ParaleloStatus paraleloStatus,
-                                        @PathVariable("materia")MateriaStatus materiaStatus,
-                                        @PathVariable("cicloNuevo") CicloStatus cicloNuevo,
-                                        @PathVariable("paraleloNuevo") ParaleloStatus paraleloNuevo,
-                                        @PathVariable("materiaNueva")MateriaStatus materiaNueva){
+                                        @PathVariable("ciclo") String cicloStatus,
+                                        @PathVariable("paralelo") String paraleloStatus,
+                                        @PathVariable("materia")String materiaStatus,
+                                        @PathVariable("cicloNuevo") String cicloNuevo,
+                                        @PathVariable("paraleloNuevo") String paraleloNuevo,
+                                        @PathVariable("materiaNueva")String materiaNueva){
        Optional<Profesor> oProfesor=this.profesorService.buscarPorCedula(cedula);
        Optional<Curso> oCurso=this.cursoService.buscarPorCicloParalelo(cicloStatus,paraleloStatus);
        Optional<Materia> oMateria=this.materiaService.buscarPorMateria(materiaStatus);

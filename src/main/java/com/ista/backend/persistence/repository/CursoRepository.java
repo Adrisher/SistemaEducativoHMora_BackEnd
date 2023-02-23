@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CursoRepository extends JpaRepository<Curso,Long> {
 
     public List<Curso> findAllByParalelo(ParaleloStatus paralelo);
-    Optional<Curso> findByCiclo(CicloStatus ciclo);
-    Optional<Curso> findByParalelo(ParaleloStatus paralelo);
-    Optional<Curso> findByCicloAndParalelo(CicloStatus ciclo,ParaleloStatus paralelo);
+    Optional<Curso> findByCiclo(String ciclo);
+    Optional<Curso> findByParalelo(String paralelo);
+    Optional<Curso> findByCicloAndParalelo(String ciclo,String paralelo);
 }

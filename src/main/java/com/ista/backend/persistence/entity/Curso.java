@@ -28,9 +28,9 @@ public class Curso implements Serializable {
 
     private Integer cupo;
 
-    private CicloStatus ciclo;
+    private String ciclo;
 
-    private ParaleloStatus paralelo;
+    private String paralelo;
 
     @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL)
     @JsonIgnore

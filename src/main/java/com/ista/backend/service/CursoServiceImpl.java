@@ -59,17 +59,17 @@ public class CursoServiceImpl implements CursoService{
     }
 
     @Override
-    public Optional<Curso> buscarPorCiclo(CicloStatus status) {
+    public Optional<Curso> buscarPorCiclo(String status) {
         return this.cursoRepository.findByCiclo(status);
     }
 
     @Override
-    public Optional<Curso> buscarPorParalelo(ParaleloStatus status) {
+    public Optional<Curso> buscarPorParalelo(String status) {
         return this.cursoRepository.findByParalelo(status);
     }
 
     @Override
-    public Optional<Curso> buscarPorCicloParalelo(CicloStatus cicloStatus, ParaleloStatus paralelo) {
+    public Optional<Curso> buscarPorCicloParalelo(String cicloStatus, String paralelo) {
         return this.cursoRepository.findByCicloAndParalelo(cicloStatus,paralelo);
     }
 }

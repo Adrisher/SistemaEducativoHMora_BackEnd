@@ -15,5 +15,5 @@ public interface MateriaService {
     public Optional<Materia> buscarPorId(Long id);
     public Materia guardar(Materia materia);
     public void borrarPorId(Long id);
-    Optional<Materia> buscarPorMateria(MateriaStatus status);
+    Optional<Materia> buscarPorMateria(String status);
 }

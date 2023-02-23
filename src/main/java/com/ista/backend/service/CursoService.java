@@ -18,7 +18,7 @@ public interface CursoService {
     public Curso guardar(Curso curso);
     public void borrarPorId(Long id);
 
-    public Optional<Curso> buscarPorCiclo(CicloStatus status);
-    public Optional<Curso> buscarPorParalelo(ParaleloStatus status);
-    public Optional<Curso> buscarPorCicloParalelo(CicloStatus cicloStatus, ParaleloStatus paralelo);
+    public Optional<Curso> buscarPorCiclo(String status);
+    public Optional<Curso> buscarPorParalelo(String status);
+    public Optional<Curso> buscarPorCicloParalelo(String cicloStatus, String paralelo);
 }

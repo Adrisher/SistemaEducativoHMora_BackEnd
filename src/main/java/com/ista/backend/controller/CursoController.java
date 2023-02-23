@@ -30,8 +30,8 @@ public class CursoController {
     }
 
     @PostMapping("/crearCurso/{cicloStatus}/{paraleloStatus}")
-    public ResponseEntity<?> crearCurso(@PathVariable("cicloStatus") CicloStatus cicloStatus,
-                                        @PathVariable("paraleloStatus")ParaleloStatus paraleloStatus){
+    public ResponseEntity<?> crearCurso(@PathVariable("cicloStatus") String cicloStatus,
+                                        @PathVariable("paraleloStatus")String paraleloStatus){
         Optional<Curso> oCurso=this.cursoService.buscarPorCicloParalelo(cicloStatus, paraleloStatus);
         if (!oCurso.isPresent()){
             Curso curso=new Curso();
@@ -39,7 +39,7 @@ public class CursoController {
             curso.setParalelo(paraleloStatus);
             return ResponseEntity.status(HttpStatus.CREATED).body(this.cursoService.guardar(curso));
         }
-        throw new SistemaEducativoExceptions("Error el curso y paralelo ya existe",HttpStatus.NOT_ACCEPTABLE);
+        return ResponseEntity.ok(oCurso);
 
     }
 
@@ -50,8 +50,8 @@ public class CursoController {
     }
 
     @GetMapping("listarPorCicloStatus/{ciclo}/{paralelo}")
-    public ResponseEntity<?> buscar(@PathVariable("ciclo")CicloStatus ciclo,
-                                    @PathVariable("paralelo")ParaleloStatus paralelo){
+    public ResponseEntity<?> buscar(@PathVariable("ciclo")String ciclo,
+                                    @PathVariable("paralelo")String paralelo){
         Optional<Curso> oCurso=this.cursoService.buscarPorCicloParalelo(ciclo, paralelo);
         if (!oCurso.isPresent()){
             return ResponseEntity.notFound().build();

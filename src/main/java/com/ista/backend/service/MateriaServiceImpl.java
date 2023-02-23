@@ -55,7 +55,7 @@ public class MateriaServiceImpl implements MateriaService{
     }
 
     @Override
-    public Optional<Materia> buscarPorMateria(MateriaStatus status) {
+    public Optional<Materia> buscarPorMateria(String status) {
         return this.materiaRepository.findByMateriaDetalle(status);
     }
 
