@@ -25,7 +25,7 @@ public class Representante implements Serializable {
     private String segundo_nombre;
     private String primer_apellido;
     private String segundo_apellido;
-    private Genero genero;
+    private String genero;
     private Date fecha_nacimiento;
     private String correo;
     private String direccion;

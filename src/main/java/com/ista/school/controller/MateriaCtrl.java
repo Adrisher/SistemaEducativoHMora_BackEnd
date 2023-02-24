@@ -23,8 +23,8 @@ public class MateriaCtrl {
     @PostMapping("/crear")
     public ResponseEntity<?> crear(@RequestBody Materia t) {
         Materia esxiste = service.fingdByNombre(t.getNombre());
-        if (esxiste == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nombre existente!!");
+        if (esxiste != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Materia existente!!");
         } else if (!t.getNombre().isEmpty() && !t.getDescripcion().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Se deben llenar todos los campos!!");
         } else {

@@ -19,22 +19,27 @@ public class ProfesorCtrl {
     private ProfesorService service;
 
     @PostMapping("/crear")
-    public ResponseEntity<?> crear(@RequestBody Profesor t){
-        return new ResponseEntity<>(service.save(t), HttpStatus.CREATED);
+    public ResponseEntity<?> crear(@RequestBody Profesor t) {
+        Profesor esxiste = service.findByCedula(t.getCedula());
+        if (esxiste != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Profesor existente!!");
+        } else {
+            return new ResponseEntity<>(service.save(t), HttpStatus.CREATED);
+        }
     }
 
     @GetMapping("/listar")
     public ResponseEntity<List<?>> listar(String nombre) {
         if (!nombre.trim().isEmpty()) {
             try {
-                List<Profesor> materias = this.service.findAll();
-                return new ResponseEntity<>(materias, HttpStatus.OK);
+                List<Profesor> profesores = service.findAll();
+                return new ResponseEntity<>(profesores, HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } else {
             try {
-                return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+                return new ResponseEntity<>(service.findByNombreContainingIgnoreCase(nombre), HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -43,7 +48,16 @@ public class ProfesorCtrl {
 
     @PostMapping ("actualizar/{id}")
     public ResponseEntity<?> actualizar(@RequestBody Profesor t, @PathVariable Long id) {
-        return null;
+        try{
+            Profesor current = service.findById(id).orElse(null);
+            if (current == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Profesor no existente");
+            } else {
+                return new ResponseEntity<>(service.update(t, id), HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/eliminar/{id}")

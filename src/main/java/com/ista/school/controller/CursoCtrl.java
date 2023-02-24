@@ -1,7 +1,7 @@
 package com.ista.school.controller;
 
-import com.ista.school.model.entity.Estudiante;
-import com.ista.school.service.EstudianteService;
+import com.ista.school.model.entity.Curso;
+import com.ista.school.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hmora/estudiante")
+@RequestMapping("/hmora/curso")
 @CrossOrigin(origins = {"http://localhost:4200"})
-public class EstudianteCtrl {
+public class CursoCtrl {
 
     @Autowired
-    private EstudianteService service;
+    private CursoService service;
 
     @PostMapping("/crear")
-    public ResponseEntity<?> crear(@RequestBody Estudiante t) {
-            return new ResponseEntity<>(service.save(t), HttpStatus.CREATED);
+    public ResponseEntity<?> crear(@RequestBody Curso t) {
+        return new ResponseEntity<>(service.save(t), HttpStatus.CREATED);
     }
 
     @GetMapping("/listar")
@@ -29,7 +29,7 @@ public class EstudianteCtrl {
     }
 
     @PostMapping ("actualizar/{id}")
-    public ResponseEntity<?> actualizar(@RequestBody Estudiante t, @PathVariable Long id) {
+    public ResponseEntity<?> actualizar(@RequestBody Curso t, @PathVariable Long id) {
         return new ResponseEntity<>(service.update(t, id), HttpStatus.OK);
     }
 

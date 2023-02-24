@@ -5,4 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RepresentanteRepository extends BaseRepository<Representante, Long> {
+
+    Representante findByCedula(String cedula);
+
 }

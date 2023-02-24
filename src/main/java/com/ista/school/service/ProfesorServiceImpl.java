@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class ProfesorServiceImpl extends BaseServiceImpl<Profesor, Long> implements ProfesorService {
 
     @Autowired
@@ -22,31 +21,13 @@ public class ProfesorServiceImpl extends BaseServiceImpl<Profesor, Long> impleme
     }
 
     @Override
-    public List<Profesor> findAll() {
-        return repository.findAll();
+    public Profesor findByCedula(String cedula) {
+        return repository.findByCedula(cedula);
     }
 
     @Override
-    public Optional<Profesor> findById(Long id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public Profesor save(Profesor entity) {
-        if (repository.findByCedula(entity.getCedula()) == null) {
-            return repository.save(entity);
-        }
-        return null;
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
-
-    @Override
-    public Profesor update(Profesor t, Long id) {
-        return null;
+    public List<Profesor> findByNombreContainingIgnoreCase(String nombre) {
+        return repository.findByNombreContainingIgnoreCase(nombre);
     }
 
 }
