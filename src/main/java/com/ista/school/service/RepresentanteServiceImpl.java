@@ -19,35 +19,10 @@ public class RepresentanteServiceImpl extends BaseServiceImpl<Representante, Lon
         super(baseRepository);
     }
 
-    @Override
-    public List<Representante> findAll() {
-        return repository.findAll();
-    }
 
     @Override
-    public Optional<Representante> findById(Long id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public Representante save(Representante entity) {
-        if (repository.findByCedula(entity.getCedula()) == null) {
-            return repository.save(entity);
-        }
-        return null;
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
-
-    @Override
-    public Representante update(Representante t, Long id) {
-        Optional<Representante> current = repository.findById(id);
-        Representante update = current.get();
-        update = repository.save(t);
-        return update;
+    public Representante findByCedula(String cedula) {
+        return repository.findByCedula(cedula);
     }
 
 }

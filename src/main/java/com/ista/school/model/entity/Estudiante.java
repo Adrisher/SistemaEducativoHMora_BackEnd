@@ -1,8 +1,8 @@
 package com.ista.school.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ista.school.model.enums.Genero;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -21,14 +21,26 @@ public class Estudiante implements Serializable {
     @Column(name = "cedula",unique = true)
     private String cedula;
 
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String nombre;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String segundo_nombre;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String primer_apellido;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String segundo_apellido;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @Pattern(regexp = "[MF]{1}")
     private String genero;
+    @Temporal(TemporalType.DATE)
+    @Past
     private Date fecha_nacimiento;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @Email(message = "Invalid email address")
     private String correo;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String direccion;
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean estado;
 
 

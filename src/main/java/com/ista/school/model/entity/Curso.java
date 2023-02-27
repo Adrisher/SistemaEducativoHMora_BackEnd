@@ -1,8 +1,9 @@
 package com.ista.school.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ista.school.model.enums.Ciclo;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,10 +18,15 @@ public class Curso implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_curso;
 
+    @Column(columnDefinition = "INTEGER CHECK (cupo >= 0)")
     private Integer cupo;
 
-    private Ciclo ciclo;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "Se debe ingresar el curso")
+    @Column(columnDefinition = "VARCHAR(50) CHECK (ciclo ~ '^[A-Z]*$')")
+    private String ciclo;
 
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "Se debe ingresar el paralelo")
+    @Column(columnDefinition = "CHAR(1) CHECK (paralelo ~ '^[A-Z]$')")
     private String paralelo;
 
     @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL)

@@ -4,6 +4,6 @@ import com.ista.school.model.entity.Representante;
 
 public interface RepresentanteService extends BaseService<Representante, Long> {
 
-    //Representante findByCedula();
+    Representante findByCedula(String cedula);
 
 }

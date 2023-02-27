@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EstudianteServiceImpl extends BaseServiceImpl<Estudiante, Long> implements EstudianteService {
@@ -19,35 +18,20 @@ public class EstudianteServiceImpl extends BaseServiceImpl<Estudiante, Long> imp
         super(baseRepository);
     }
 
+
     @Override
-    public List<Estudiante> findAll() {
-        return reposistory.findAll();
+    public Estudiante findByCedula(String cedula) {
+        return reposistory.findByCedula(cedula);
     }
 
     @Override
-    public Optional<Estudiante> findById(Long id) {
-        return reposistory.findById(id);
+    public List<Estudiante> findEstudent(String cedula, String nombre, String apellido) {
+        return reposistory.findEstudent(cedula, nombre, apellido);
     }
 
     @Override
-    public Estudiante save(Estudiante entity) {
-        if (reposistory.findByCedula(entity.getCedula()) == null) {
-            return reposistory.save(entity);
-        }
-        return null;
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        reposistory.deleteById(id);
-    }
-
-    @Override
-    public Estudiante update(Estudiante t, Long id) {
-        Optional<Estudiante> current = reposistory.findById(id);
-        Estudiante update = current.get();
-        update = reposistory.save(t);
-        return update;
+    public List<Estudiante> findTrue() {
+        return reposistory.findTrue();
     }
 
 }
