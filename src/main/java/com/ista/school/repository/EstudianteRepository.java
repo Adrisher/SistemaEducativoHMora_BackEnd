@@ -23,11 +23,8 @@ public interface EstudianteRepository extends BaseRepository<Estudiante, Long> {
                              @Param("apellido")String apellido);
 
 
-    @Query(
-            value = "SELECT * FROM estudiante e " +
-                    "WHERE estado = TRUE",
-            nativeQuery = true
-    )
-    List<Estudiante> findTrue();
+    List<Estudiante> findByEstadoTrue();
+
+    List<Estudiante> findByEstadoTrueAndCedula(String cedula);
 
 }

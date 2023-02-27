@@ -30,8 +30,13 @@ public class EstudianteServiceImpl extends BaseServiceImpl<Estudiante, Long> imp
     }
 
     @Override
-    public List<Estudiante> findTrue() {
-        return reposistory.findTrue();
+    public List<Estudiante> findByEstadoTrue() {
+        return reposistory.findByEstadoTrue();
+    }
+
+    @Override
+    public List<Estudiante> findByEstadoTrueAndCedula(String cedula) {
+        return reposistory.findByEstadoTrueAndCedula(cedula);
     }
 
 }

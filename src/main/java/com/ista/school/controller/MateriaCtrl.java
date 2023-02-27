@@ -2,8 +2,8 @@ package com.ista.school.controller;
 
 import com.ista.school.model.entity.Materia;
 import com.ista.school.service.MateriaService;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,52 +22,46 @@ public class MateriaCtrl {
 
     @PostMapping("/crear")
     public ResponseEntity<?> crear(@RequestBody Materia t) {
-        Materia esxiste = service.fingdByNombre(t.getNombre());
-        if (esxiste != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Materia existente!!");
-        } else if (!t.getNombre().isEmpty() && !t.getDescripcion().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Se deben llenar todos los campos!!");
-        } else {
-            return new ResponseEntity<>(service.save(t), HttpStatus.CREATED);
+        try {
+            return new ResponseEntity<>(service.save(t), HttpStatus.OK);
+        } catch (ConstraintViolationException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getConstraintViolations());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<?>> listar(String nombre) {
-        if (!nombre.trim().isEmpty()) {
-            try {
+    @GetMapping("/listar/{nombre}")
+    public ResponseEntity<List<?>> listar(@PathVariable String nombre) {
+        try {
+            if (!nombre.trim().isEmpty()) {
                 List<Materia> materias = this.service.findAll();
                 return new ResponseEntity<>(materias, HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        } else {
-            try {
-                return new ResponseEntity<>(service.findByNombreContainingIgnoreCase(nombre), HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-    }
-
-    @PostMapping ("actualizar/{id}")
-    public ResponseEntity<?> actualizar(@RequestBody Materia t, @PathVariable Long id) {
-        try{
-            Materia current = service.findById(id).orElse(null);
-            if (current == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Materia no existente");
-            } else if (service.fingdByNombre(t.getNombre()) == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Materia no existente");
             } else {
-                return new ResponseEntity<>(service.update(t, id), HttpStatus.OK);
+                return new ResponseEntity<>(service.findByNombreContainingIgnoreCase(nombre), HttpStatus.OK);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+    }
+
+    @PostMapping ("actualizar/{id}")
+    public ResponseEntity<?> actualizar(@RequestBody Materia t, @PathVariable Long id) {
+        try {
+            Materia current = service.findById(id).orElse(null);
+            current.setNombre(t.getNombre());
+            current.setDescripcion(t.getDescripcion());
+            return new ResponseEntity<>(service.save(current), HttpStatus.OK);
+        } catch (ConstraintViolationException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getConstraintViolations());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/eliminar/{id}")
-    private RequestEntity<?> eliminar(@PathVariable Long id) {
+    private ResponseEntity<?> eliminar(@PathVariable Long id) {
         return null;
     }
 

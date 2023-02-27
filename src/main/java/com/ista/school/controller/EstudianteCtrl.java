@@ -37,14 +37,12 @@ public class EstudianteCtrl {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<?>> listar(String cedula, String nombre, String apellido) {
+    public ResponseEntity<List<?>> listar(String cedula) {
         try {
-            if (cedula.isEmpty() || cedula.isBlank() ||
-                    nombre.isEmpty() || nombre.isBlank() ||
-                    apellido.isEmpty() || apellido.isBlank()) {
-                return new ResponseEntity<>(service.findTrue(), HttpStatus.OK);
+            if (cedula.isEmpty() || cedula.isBlank()) {
+                return new ResponseEntity<>(service.findByEstadoTrue(), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(service.findEstudent(cedula, nombre, apellido), HttpStatus.OK);
+                return new ResponseEntity<>(service.findByEstadoTrueAndCedula(cedula), HttpStatus.OK);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonList(e.getMessage() + " Revisar los campos"));

@@ -10,6 +10,8 @@ public interface EstudianteService extends BaseService<Estudiante, Long> {
 
     List<Estudiante> findEstudent(String cedula, String nombre, String apellido);
 
-    List<Estudiante> findTrue();
+    List<Estudiante> findByEstadoTrue();
+
+    List<Estudiante> findByEstadoTrueAndCedula(String cedula);
 
 }
