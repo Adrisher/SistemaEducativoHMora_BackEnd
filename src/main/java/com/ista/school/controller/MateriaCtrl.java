@@ -54,18 +54,12 @@ public class MateriaCtrl {
         }
     }
 
-    @PostMapping ("actualizar/{id}")
-    public ResponseEntity<?> actualizar(@RequestBody Materia t, @PathVariable Long id) {
-        try {
+    @PutMapping("actualizar/{id}")
+    public ResponseEntity<?> actualizar(@RequestBody Materia t, @PathVariable(value = "id")  Long id) {
             Materia current = service.findById(id).orElse(null);
             current.setNombre(t.getNombre());
             current.setDescripcion(t.getDescripcion());
             return new ResponseEntity<>(service.save(current), HttpStatus.OK);
-        } catch (ConstraintViolationException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getConstraintViolations());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
     }
 
     @DeleteMapping("/eliminar/{id}")
