@@ -73,7 +73,7 @@ public class EstudianteCtrl {
         }
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @PutMapping("/eliminar/{id}")
     private ResponseEntity<?> eliminar(@PathVariable Long id) {
         try {
             Estudiante current = service.findById(id).orElse(null);

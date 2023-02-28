@@ -31,10 +31,10 @@ public class MateriaCtrl {
         }
     }
 
-    @GetMapping("/listar/{nombre}")
-    public ResponseEntity<List<?>> listar(@PathVariable String nombre) {
+    @GetMapping("/buscar/")
+    public ResponseEntity<List<?>> buscar(@RequestParam("nombre") String nombre) {
         try {
-            if (!nombre.trim().isEmpty()) {
+            if (nombre.trim().isEmpty()) {
                 List<Materia> materias = this.service.findAll();
                 return new ResponseEntity<>(materias, HttpStatus.OK);
             } else {
@@ -43,7 +43,15 @@ public class MateriaCtrl {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
+    @GetMapping("/listar")
+    public ResponseEntity<List<?>> listar() {
+        try {
+            return ResponseEntity.ok(service.findAll());
+        } catch (Exception e) {
+            return (ResponseEntity<List<?>>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping ("actualizar/{id}")

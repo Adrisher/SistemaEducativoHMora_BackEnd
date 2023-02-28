@@ -66,7 +66,7 @@ public class RepresentanteCtrl {
         }
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @PostMapping("/eliminar/{id}")
     private ResponseEntity<?> eliminar(@PathVariable Long id) {
         try {
             Representante current = service.findById(id).orElse(null);

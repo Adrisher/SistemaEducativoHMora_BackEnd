@@ -2,6 +2,9 @@ package com.ista.school.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -18,13 +21,13 @@ public class Periodo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_periodo;
-
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     @Column(name="fecha_inicio",updatable = false)
-    @CreationTimestamp
+    @Temporal(TemporalType.DATE)
     private Date fecha_inicio;
-
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     @Column(name = "fecha_fin",insertable = false)
-    @UpdateTimestamp
+    @Temporal(TemporalType.DATE)
     private Date fecha_fin;
 
     @OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL)

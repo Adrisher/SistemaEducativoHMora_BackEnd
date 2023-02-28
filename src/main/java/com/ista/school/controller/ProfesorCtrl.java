@@ -60,7 +60,7 @@ public class ProfesorCtrl {
         }
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @PutMapping("/eliminar/{id}")
     private RequestEntity<?> eliminar(@PathVariable Long id) {
         return null;
     }
