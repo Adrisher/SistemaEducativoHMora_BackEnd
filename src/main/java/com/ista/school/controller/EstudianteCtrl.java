@@ -36,8 +36,8 @@ public class EstudianteCtrl {
         }
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<?>> listar(String cedula) {
+    @GetMapping("/buscar")
+    public ResponseEntity<List<?>> buscarCedular(String cedula) {
         try {
             if (cedula.isEmpty() || cedula.isBlank()) {
                 return new ResponseEntity<>(service.findByEstadoTrue(), HttpStatus.OK);
@@ -47,6 +47,10 @@ public class EstudianteCtrl {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonList(e.getMessage() + " Revisar los campos"));
         }
+    }
+    @GetMapping("/listar")
+    public ResponseEntity<List<?>> listar() {
+        return new ResponseEntity<>(service.findByEstadoTrue(), HttpStatus.OK);
     }
 
     @PostMapping ("actualizar/{id}")

@@ -20,6 +20,7 @@ import java.util.List;
 public class CursoCtrl {
     @Autowired
     private CursoService service;
+
     @PostMapping("/crear")
     public ResponseEntity<?> crear(@RequestBody Curso t) {
         try {
@@ -35,8 +36,8 @@ public class CursoCtrl {
         }
     }
 
-    @GetMapping("/listar/{filtro}")
-    public ResponseEntity<List<?>> listar(@PathVariable String filtro) {
+    @GetMapping("/buscar/{filtro}")
+    public ResponseEntity<List<?>> buscar(@PathVariable String filtro) {
         try {
             if (filtro.isEmpty() || filtro.isBlank()) {
                 return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
@@ -46,7 +47,11 @@ public class CursoCtrl {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonList(e.getMessage() + " Revisar los campos"));
         }
+    }
 
+    @GetMapping("/listar")
+    public ResponseEntity<List<?>> listar() {
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @PostMapping ("actualizar/{id}")
