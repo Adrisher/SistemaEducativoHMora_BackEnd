@@ -36,8 +36,8 @@ public class EstudianteCtrl {
         }
     }
 
-    @GetMapping("/buscar")
-    public ResponseEntity<List<?>> buscarCedular(String cedula) {
+    @GetMapping("/buscar/")
+    public ResponseEntity<List<?>> buscarCedula(@RequestParam("cedula")String cedula) {
         try {
             if (cedula.isEmpty() || cedula.isBlank()) {
                 return new ResponseEntity<>(service.findByEstadoTrue(), HttpStatus.OK);
