@@ -1,5 +1,8 @@
 package com.ista.school.service;
 
+import com.ista.school.model.entity.Curso;
+import com.ista.school.model.entity.Materia;
+import com.ista.school.model.entity.Profesor;
 import com.ista.school.model.entity.ProfesorCursoMateria;
 import com.ista.school.repository.BaseRepository;
 import com.ista.school.repository.ProfesorCursoMateriaRepository;
@@ -14,6 +17,11 @@ public class ProfesorCursoMateriaServiceImpl extends BaseServiceImpl<ProfesorCur
 
     public ProfesorCursoMateriaServiceImpl(BaseRepository<ProfesorCursoMateria, Long> baseRepository) {
         super(baseRepository);
+    }
+
+    @Override
+    public ProfesorCursoMateria buscarProfesorCursoMateria(Profesor profesor, Curso curso, Materia materia) {
+        return this.repository.findByProfesorAndCursoAndMateria(profesor,curso,materia);
     }
 
 }
