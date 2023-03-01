@@ -7,6 +7,9 @@ import java.util.List;
 public interface CursoService extends BaseService<Curso, Long> {
 
     List<Curso> findByCicloOrParalelo(String filtro);
+
     boolean exist(String ciclo, String paralelo);
+
+    Curso buscarPorCicloParalelo(String cicloStatus, String paralelo);
 
 }
