@@ -10,6 +10,9 @@ public interface CursoService extends BaseService<Curso, Long> {
 
     boolean exist(String ciclo, String paralelo);
 
+    Curso findByCiclo(String ciclo);
+
     Curso buscarPorCicloParalelo(String cicloStatus, String paralelo);
+
 
 }

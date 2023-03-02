@@ -83,4 +83,17 @@ public class CursoCtrl {
         }
     }
 
+    @PostMapping("/buscar/{ciclo}")
+    public ResponseEntity<?> buscarCursoByCiclo(@PathVariable String ciclo) {
+        try {
+            if (ciclo.isEmpty() || ciclo.isBlank()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos erroneos");
+            } else {
+                return ResponseEntity.ok(service.findByCiclo(ciclo));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Campo erroneos");
+        }
+    }
+
 }

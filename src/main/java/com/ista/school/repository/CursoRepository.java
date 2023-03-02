@@ -24,6 +24,9 @@ public interface CursoRepository extends BaseRepository<Curso, Long> {
     )
     boolean exist(@Param("ciclo") String ciclo, @Param("paralelo") String paralelo);
 
+    Curso findCursoByCiclo(String ciclo);
+
     Curso findByCicloAndParalelo(String ciclo,String paralelo);
+
 
 }

@@ -16,4 +16,13 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implement
         super(baseRepository);
     }
 
+    @Override
+    public Usuario logIn(String username, String password) {
+        return repository.findUsuarioByContraseñaAndNombreUsuario(username, password);
+    }
+
+    @Override
+    public Usuario findByCedula(String cedula) {
+        return repository.findUsuarioByNombreUsuario(cedula);
+    }
 }

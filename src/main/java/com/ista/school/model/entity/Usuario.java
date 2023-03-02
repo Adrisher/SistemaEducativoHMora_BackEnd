@@ -1,7 +1,8 @@
 package com.ista.school.model.entity;
 
-import com.ista.school.model.enums.Rol;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,8 +17,11 @@ public class Usuario implements Serializable {
     private Long id_usuario;
 
     @Column(unique = true)
-    String nombreUsuario;
-    String contraseña;
-    Rol rol;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    private String nombreUsuario;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    private String contraseña;
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    private String rol;
 
 }

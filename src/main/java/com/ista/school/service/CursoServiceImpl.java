@@ -29,6 +29,11 @@ public class CursoServiceImpl extends BaseServiceImpl<Curso, Long> implements Cu
     }
 
     @Override
+    public Curso findByCiclo(String ciclo) {
+        return repository.findCursoByCiclo(ciclo);
+    }
+
+    @Override
     public Curso buscarPorCicloParalelo(String cicloStatus, String paralelo) {
         return this.repository.findByCicloAndParalelo(cicloStatus,paralelo);
     }
