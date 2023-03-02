@@ -9,4 +9,6 @@ public interface CursoService extends BaseService<Curso, Long> {
     List<Curso> findByCicloOrParalelo(String filtro);
     boolean exist(String ciclo, String paralelo);
 
+    Curso findByCiclo(String ciclo);
+
 }
