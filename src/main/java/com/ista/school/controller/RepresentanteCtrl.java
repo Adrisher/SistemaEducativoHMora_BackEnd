@@ -4,6 +4,7 @@ import com.ista.school.model.entity.Representante;
 import com.ista.school.service.RepresentanteService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.UnexpectedTypeException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -81,6 +82,18 @@ public class RepresentanteCtrl {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + " Revisar los campos");
         }
+    }
+
+    @GetMapping("representante")
+    public ResponseEntity<?> buscarRepre(@PathVariable String cedula) {
+        if (StringUtils.isEmpty(cedula)) {
+            return ResponseEntity.badRequest().build();
+        }
+        Representante repre = service.findByCedula(cedula);
+        if (repre == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(repre);
     }
 
 }

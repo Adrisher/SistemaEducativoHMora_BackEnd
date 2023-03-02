@@ -77,7 +77,7 @@ public class CursoCtrl {
     private ResponseEntity<?> eliminar(@PathVariable Long id) {
         try {
             service.deleteById(id);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Se elimino correctamente");
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Se elimino correctamente");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + " Error de constraint");
         }

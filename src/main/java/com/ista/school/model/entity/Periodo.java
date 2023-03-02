@@ -21,12 +21,10 @@ public class Periodo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_periodo;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
-    @Column(name="fecha_inicio",updatable = false)
+    @NotNull(message = "Campo Obligatorio")
     @Temporal(TemporalType.DATE)
     private Date fecha_inicio;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
-    @Column(name = "fecha_fin",insertable = false)
+    @NotNull(message = "Campo Obligatorio")
     @Temporal(TemporalType.DATE)
     private Date fecha_fin;
 

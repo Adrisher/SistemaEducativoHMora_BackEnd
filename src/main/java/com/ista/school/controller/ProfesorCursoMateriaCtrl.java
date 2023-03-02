@@ -36,7 +36,7 @@ public class ProfesorCursoMateriaCtrl {
             current.setMateria(t.getMateria());
             return new ResponseEntity<>(service.save(t), HttpStatus.OK);
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(" Error del Servidor");
     }
 
     @DeleteMapping("/eliminar/{id}")

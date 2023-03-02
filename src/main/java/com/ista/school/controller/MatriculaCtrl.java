@@ -3,6 +3,7 @@ package com.ista.school.controller;
 import com.ista.school.model.entity.Materia;
 import com.ista.school.model.entity.Matricula;
 import com.ista.school.service.MatriculaService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,21 +25,19 @@ public class MatriculaCtrl {
     @PostMapping("/crear")
     public ResponseEntity<?> crear(@RequestBody Matricula t) {
         try {
-
+            return ResponseEntity.ok(service.save(t));
         } catch (Exception e) {
-
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se pudo ingresar");
         }
-        return null;
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<?>> listar(String nombre) {
+    public ResponseEntity<List<?>> listar() {
         try {
-
+            return ResponseEntity.ok(service.findAll());
         } catch (Exception e) {
-
+            return (ResponseEntity<List<?>>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return null;
     }
 
     @PostMapping ("actualizar/{id}")

@@ -22,7 +22,7 @@ public class ProfesorCtrl {
     public ResponseEntity<?> crear(@RequestBody Profesor t) {
         Profesor esxiste = service.findByCedula(t.getCedula());
         if (esxiste != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Profesor existente!!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Periodo existente!!");
         } else {
             return new ResponseEntity<>(service.save(t), HttpStatus.CREATED);
         }
