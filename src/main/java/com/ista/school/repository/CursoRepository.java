@@ -26,4 +26,7 @@ public interface CursoRepository extends BaseRepository<Curso, Long> {
 
     Curso findCursoByCiclo(String ciclo);
 
+    Curso findByCicloAndParalelo(String ciclo,String paralelo);
+
+
 }
