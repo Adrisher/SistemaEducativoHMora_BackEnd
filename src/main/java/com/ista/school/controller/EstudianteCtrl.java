@@ -4,6 +4,7 @@ import com.ista.school.model.entity.Estudiante;
 import com.ista.school.service.EstudianteService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.UnexpectedTypeException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -88,6 +89,18 @@ public class EstudianteCtrl {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + " Revisar los campos");
         }
+    }
+
+    @GetMapping("/{cedula}")
+    public ResponseEntity<Estudiante> buscarEstu(@PathVariable String cedula) {
+        if (StringUtils.isEmpty(cedula)) {
+            return ResponseEntity.badRequest().build();
+        }
+        Estudiante estudiante = service.findByCedula(cedula);
+        if (estudiante == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(estudiante);
     }
 
 }
