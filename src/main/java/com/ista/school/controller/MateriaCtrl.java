@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hmora/materia")
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*"})
 public class MateriaCtrl {
 
     private final MateriaService service;

@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hmora/curso")
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*"})
 public class CursoCtrl {
     @Autowired
     private CursoService service;
@@ -93,6 +93,19 @@ public class CursoCtrl {
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Campo erroneos");
+        }
+    }
+
+    @GetMapping("/ciclo/{ciclo}")
+    public ResponseEntity<List<?>> buscarByCiclos(@PathVariable String ciclo) {
+        try {
+            if (ciclo.isEmpty() || ciclo.isBlank()) {
+                return (ResponseEntity<List<?>>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                return ResponseEntity.ok(service.findByCiclos(ciclo));
+            }
+        } catch (Exception e) {
+            return (ResponseEntity<List<?>>) ResponseEntity.status(HttpStatus.BAD_REQUEST);
         }
     }
 
