@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hmora/profesor")
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*"})
 public class ProfesorCtrl {
 
     @Autowired

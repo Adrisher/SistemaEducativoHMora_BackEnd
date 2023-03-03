@@ -30,5 +30,7 @@ public interface CursoRepository extends BaseRepository<Curso, Long> {
 
     List<Curso> findByCicloContainingIgnoreCaseOrParaleloContainingIgnoreCaseOrderByParalelo(String ciclo, String paralelo);
 
+    List<Curso> findByCiclo (String ciclo);
+
 
 }
