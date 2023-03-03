@@ -28,5 +28,7 @@ public interface CursoRepository extends BaseRepository<Curso, Long> {
 
     Curso findByCicloAndParalelo(String ciclo,String paralelo);
 
+    List<Curso> findByCicloContainingIgnoreCaseOrParaleloContainingIgnoreCaseOrderByParalelo(String ciclo, String paralelo);
+
 
 }

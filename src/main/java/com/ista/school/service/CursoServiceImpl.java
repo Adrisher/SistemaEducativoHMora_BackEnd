@@ -38,4 +38,9 @@ public class CursoServiceImpl extends BaseServiceImpl<Curso, Long> implements Cu
         return this.repository.findByCicloAndParalelo(cicloStatus,paralelo);
     }
 
+    @Override
+    public List<Curso> findLikePareloOrCuclo(String filtro) {
+        return repository.findByCicloContainingIgnoreCaseOrParaleloContainingIgnoreCaseOrderByParalelo(filtro, filtro);
+    }
+
 }

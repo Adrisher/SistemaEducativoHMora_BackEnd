@@ -36,13 +36,13 @@ public class CursoCtrl {
         }
     }
 
-    @GetMapping("/buscar/{filtro}")
-    public ResponseEntity<List<?>> buscar(@PathVariable String filtro) {
+    @GetMapping("/buscar/")
+    public ResponseEntity<List<?>> buscar(@RequestParam("filtro") String filtro) {
         try {
             if (filtro.isEmpty() || filtro.isBlank()) {
                 return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(service.findByCicloOrParalelo(filtro), HttpStatus.OK);
+                return new ResponseEntity<>(service.findLikePareloOrCuclo(filtro), HttpStatus.OK);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonList(e.getMessage() + " Revisar los campos"));

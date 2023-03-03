@@ -14,5 +14,7 @@ public interface CursoService extends BaseService<Curso, Long> {
 
     Curso buscarPorCicloParalelo(String cicloStatus, String paralelo);
 
+    List<Curso> findLikePareloOrCuclo(String filtro);
+
 
 }
