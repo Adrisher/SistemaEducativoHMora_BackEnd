@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends BaseRepository<Usuario, Long> {
 
-    Usuario findUsuarioByContraseñaAndNombreUsuario(String username, String password);
+    Usuario findByNombreUsuarioAndContraseña(String username, String password);
 
     Usuario findUsuarioByNombreUsuario(String username);
 

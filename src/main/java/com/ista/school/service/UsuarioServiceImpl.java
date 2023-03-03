@@ -18,7 +18,7 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implement
 
     @Override
     public Usuario logIn(String username, String password) {
-        return repository.findUsuarioByContraseñaAndNombreUsuario(username, password);
+        return repository.findByNombreUsuarioAndContraseña(username, password);
     }
 
     @Override
