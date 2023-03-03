@@ -36,6 +36,15 @@ public class PeriodoCtrl {
         }
     }
 
+    @GetMapping("/listarPeriodos")
+    public ResponseEntity<List<?>> listarPeriodos() {
+        try {
+            return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonList("Error en el servidor"));
+        }
+    }
+
     @PutMapping ("actualizar/{id}")
     public ResponseEntity<?> actualizar(@RequestBody Periodo t, @PathVariable Long id) {
         try {
