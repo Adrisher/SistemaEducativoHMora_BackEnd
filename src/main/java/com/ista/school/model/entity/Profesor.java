@@ -1,7 +1,6 @@
 package com.ista.school.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ista.school.model.enums.Genero;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -33,17 +32,11 @@ public class Profesor implements Serializable {
     private String direccion;
     private Boolean estado;
     private String area;
-    @PrePersist
-    public void prePersist() {
-        fecha_nacimiento= new Date();
-    }
 
     @PrePersist
     public void prePersist() {
         fecha_nacimiento= new Date();
     }
-
-
 
     @OneToOne
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
