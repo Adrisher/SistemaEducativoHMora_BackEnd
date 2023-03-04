@@ -86,5 +86,6 @@ public class ProfesorCtrl {
         Profesor current = service.findById(id).orElse(null);
         current.setEstado(false);
         return new ResponseEntity<>(service.save(current), HttpStatus.OK);
+
     }
 }

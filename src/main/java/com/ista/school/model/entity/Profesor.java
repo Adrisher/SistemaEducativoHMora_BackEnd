@@ -38,6 +38,13 @@ public class Profesor implements Serializable {
         fecha_nacimiento= new Date();
     }
 
+    @PrePersist
+    public void prePersist() {
+        fecha_nacimiento= new Date();
+    }
+
+
+
     @OneToOne
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
     private Usuario usuario;
