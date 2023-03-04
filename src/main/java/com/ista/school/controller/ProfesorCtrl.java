@@ -1,5 +1,6 @@
 package com.ista.school.controller;
 
+import com.ista.school.model.entity.Materia;
 import com.ista.school.model.entity.Profesor;
 import com.ista.school.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hmora/profesor")
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class ProfesorCtrl {
 
     @Autowired
@@ -22,9 +23,22 @@ public class ProfesorCtrl {
     public ResponseEntity<?> crear(@RequestBody Profesor t) {
         Profesor esxiste = service.findByCedula(t.getCedula());
         if (esxiste != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Periodo existente!!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Profesor existente!!");
         } else {
             return new ResponseEntity<>(service.save(t), HttpStatus.CREATED);
+        }
+    }
+
+    @GetMapping("/buscar/")
+    public ResponseEntity<List<?>> buscar(@RequestParam String nombre) {
+        try {
+            if (nombre.isEmpty() || nombre.isBlank()) {
+                return new ResponseEntity<>(service.findByTrue(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(service.findByCedulaTrue(nombre), HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -39,15 +53,20 @@ public class ProfesorCtrl {
             }
         } else {
             try {
-                return new ResponseEntity<>(service.findByNombreContainingIgnoreCase(nombre), HttpStatus.OK);
+                return new ResponseEntity<>(service.findByCedulaTrue(nombre), HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
     }
 
+    @GetMapping("/listarid/{cedula}")
+    public Profesor listarId(@PathVariable("cedula") String cedula) {
+        return service.findByCedula(cedula);
+    }
+
     @PutMapping("actualizar/{id}")
-    public ResponseEntity<?> actualizar(@RequestBody Profesor t, @PathVariable(value = "id")  Long id) {
+    public ResponseEntity<?> actualizar(@RequestBody Profesor t, @PathVariable Long id) {
         Profesor current = service.findById(id).orElse(null);
         current.setNombre(t.getNombre());
         current.setSegundo_nombre(t.getSegundo_nombre());
@@ -62,11 +81,11 @@ public class ProfesorCtrl {
         return new ResponseEntity<>(service.save(current), HttpStatus.OK);
     }
 
-    @DeleteMapping("/eliminar/{id}")
-    private RequestEntity<?> eliminar(@PathVariable Long id) {
-        return service.deleteById(id);
+    @PutMapping("/eliminar/{id}")
+    public ResponseEntity<?> eliminar(@RequestBody Profesor t, @PathVariable(value = "id")  Long id) {
+        Profesor current = service.findById(id).orElse(null);
+        current.setEstado(false);
+        return new ResponseEntity<>(service.save(current), HttpStatus.OK);
 
     }
-
-
 }

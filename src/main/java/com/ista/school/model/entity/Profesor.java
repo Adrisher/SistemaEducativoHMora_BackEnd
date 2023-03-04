@@ -33,6 +33,10 @@ public class Profesor implements Serializable {
     private String direccion;
     private Boolean estado;
     private String area;
+    @PrePersist
+    public void prePersist() {
+        fecha_nacimiento= new Date();
+    }
 
     @PrePersist
     public void prePersist() {
@@ -42,7 +46,6 @@ public class Profesor implements Serializable {
 
 
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
     private Usuario usuario;
 
