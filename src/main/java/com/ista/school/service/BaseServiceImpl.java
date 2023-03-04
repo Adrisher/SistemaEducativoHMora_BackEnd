@@ -1,6 +1,7 @@
 package com.ista.school.service;
 
 import com.ista.school.repository.BaseRepository;
+import org.springframework.http.RequestEntity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,8 +31,9 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
     }
 
     @Override
-    public void deleteById(ID id) {
+    public RequestEntity<?> deleteById(ID id) {
         baseRepository.deleteById(id);
+        return null;
     }
 
     @Override

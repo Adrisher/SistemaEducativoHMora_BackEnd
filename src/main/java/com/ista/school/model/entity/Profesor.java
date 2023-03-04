@@ -26,14 +26,19 @@ public class Profesor implements Serializable {
     private String primer_apellido;
     private String segundo_apellido;
     private String genero;
+
+    @Temporal(TemporalType.DATE)
     private Date fecha_nacimiento;
     private String correo;
     private String direccion;
     private Boolean estado;
     private String area;
+    @PrePersist
+    public void prePersist() {
+        fecha_nacimiento= new Date();
+    }
 
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
     private Usuario usuario;
 

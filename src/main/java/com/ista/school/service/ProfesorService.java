@@ -7,6 +7,8 @@ import java.util.List;
 public interface ProfesorService extends BaseService<Profesor, Long> {
 
     Profesor findByCedula(String cedula);
-    List<Profesor> findByNombreContainingIgnoreCase(String nombre);
+    List<Profesor> findByCedulaTrue(String cedula);
+
+    List<Profesor> findByTrue ();
 
 }

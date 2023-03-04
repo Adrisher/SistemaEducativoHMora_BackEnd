@@ -26,8 +26,14 @@ public class ProfesorServiceImpl extends BaseServiceImpl<Profesor, Long> impleme
     }
 
     @Override
-    public List<Profesor> findByNombreContainingIgnoreCase(String nombre) {
-        return repository.findByNombreContainingIgnoreCase(nombre);
+    public List<Profesor> findByCedulaTrue(String cedula) {
+        return repository.findByCedulaContainingIgnoreCaseAndEstadoTrue(cedula);
     }
+
+    @Override
+    public List<Profesor> findByTrue() {
+        return repository.findByEstadoTrue();
+    }
+
 
 }
