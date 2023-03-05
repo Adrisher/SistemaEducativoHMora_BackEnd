@@ -27,12 +27,21 @@ public class ProfesorServiceImpl extends BaseServiceImpl<Profesor, Long> impleme
 
     @Override
     public List<Profesor> findByCedulaTrue(String cedula) {
-        return repository.findByCedulaContainingIgnoreCaseAndEstadoTrue(cedula);
+        return repository.findByEstadoTrueAndCedulaContainingIgnoreCase(cedula);
     }
 
     @Override
     public List<Profesor> findByTrue() {
         return repository.findByEstadoTrue();
+    }
+
+    @Override
+    public boolean isActive(String username) {
+        Profesor profesor = repository.findByEstadoTrueAndCedula(username);
+        if (profesor != null) {
+            return true;
+        }
+        return false;
     }
 
 

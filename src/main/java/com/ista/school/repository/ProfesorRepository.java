@@ -10,8 +10,10 @@ public interface ProfesorRepository extends BaseRepository<Profesor, Long> {
 
     Profesor findByCedula(String cedula);
 
-    List<Profesor> findByCedulaContainingIgnoreCaseAndEstadoTrue (String nombre);
+    List<Profesor> findByEstadoTrueAndCedulaContainingIgnoreCase(String cedula);
 
-    List<Profesor> findByEstadoTrue ();
+    List<Profesor> findByEstadoTrue();
+
+    Profesor findByEstadoTrueAndCedula(String username);
 
 }

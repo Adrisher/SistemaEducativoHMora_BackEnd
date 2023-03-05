@@ -1,6 +1,7 @@
 package com.ista.school.service;
 
 import com.ista.school.model.entity.Estudiante;
+import com.ista.school.model.entity.Profesor;
 import com.ista.school.repository.BaseRepository;
 import com.ista.school.repository.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.List;
 public class EstudianteServiceImpl extends BaseServiceImpl<Estudiante, Long> implements EstudianteService {
 
     @Autowired
-    private EstudianteRepository reposistory;
+    private EstudianteRepository repository;
 
     public EstudianteServiceImpl(BaseRepository<Estudiante, Long> baseRepository) {
         super(baseRepository);
@@ -21,22 +22,31 @@ public class EstudianteServiceImpl extends BaseServiceImpl<Estudiante, Long> imp
 
     @Override
     public Estudiante findByCedula(String cedula) {
-        return reposistory.findByCedula(cedula);
+        return repository.findByCedula(cedula);
     }
 
     @Override
     public List<Estudiante> findEstudent(String cedula, String nombre, String apellido) {
-        return reposistory.findEstudent(cedula, nombre, apellido);
+        return repository.findEstudent(cedula, nombre, apellido);
     }
 
     @Override
     public List<Estudiante> findByEstadoTrue() {
-        return reposistory.findByEstadoTrue();
+        return repository.findByEstadoTrue();
     }
 
     @Override
     public List<Estudiante> findByEstadoTrueAndCedula(String cedula) {
-        return reposistory.findByEstadoTrueAndCedulaContainingIgnoreCase(cedula);
+        return repository.findByEstadoTrueAndCedulaContainingIgnoreCase(cedula);
+    }
+
+    @Override
+    public boolean isActive(String username) {
+        Estudiante estudiante = repository.findByEstadoTrueAndCedula(username);
+        if (estudiante != null) {
+            return true;
+        }
+        return false;
     }
 
 }

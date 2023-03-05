@@ -1,11 +1,9 @@
 package com.ista.school.controller;
 
-import com.ista.school.model.entity.Materia;
 import com.ista.school.model.entity.Profesor;
 import com.ista.school.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +28,12 @@ public class ProfesorCtrl {
     }
 
     @GetMapping("/buscar/")
-    public ResponseEntity<List<?>> buscar(@RequestParam String nombre) {
+    public ResponseEntity<List<?>> buscar(@RequestParam(name = "cedula") String cedula) {
         try {
-            if (nombre.isEmpty() || nombre.isBlank()) {
+            if (cedula.isEmpty() || cedula.isBlank()) {
                 return new ResponseEntity<>(service.findByTrue(), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(service.findByCedulaTrue(nombre), HttpStatus.OK);
+                return new ResponseEntity<>(service.findByCedulaTrue(cedula), HttpStatus.OK);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -43,26 +41,12 @@ public class ProfesorCtrl {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<?>> listar(String nombre) {
-        if (!nombre.trim().isEmpty()) {
-            try {
-                List<Profesor> profesores = service.findAll();
-                return new ResponseEntity<>(profesores, HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        } else {
-            try {
-                return new ResponseEntity<>(service.findByCedulaTrue(nombre), HttpStatus.OK);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    public ResponseEntity<List<?>> listar() {
+        try {
+           return ResponseEntity.ok(service.findByTrue());
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    @GetMapping("/listarid/{cedula}")
-    public Profesor listarId(@PathVariable("cedula") String cedula) {
-        return service.findByCedula(cedula);
     }
 
     @PutMapping("actualizar/{id}")

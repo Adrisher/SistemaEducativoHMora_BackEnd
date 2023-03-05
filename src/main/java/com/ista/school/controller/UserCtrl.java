@@ -6,7 +6,6 @@ import com.ista.school.model.entity.Usuario;
 import com.ista.school.service.EstudianteService;
 import com.ista.school.service.ProfesorService;
 import com.ista.school.service.UsuarioService;
-import com.ista.school.service.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,13 +54,20 @@ public class UserCtrl {
 
 
 
-    @PostMapping("/logIn/{username}/{password}")
-    public ResponseEntity<Usuario> iniciar(@PathVariable String username, @PathVariable String password) {
-        Usuario usuario = usuarioService.logIn(username, password);
-        if(usuario != null) {
-            return ResponseEntity.ok(usuario);
-        } else {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/logIn/{username}/{password}")
+    public ResponseEntity<?> iniciar(@PathVariable String username, @PathVariable String password) {
+        try {
+            Usuario usuario = usuarioService.logIn(username, password);
+            if(usuario != null) {
+                if(!profesorService.isActive(username) && !estudianteService.isActive(username)) {
+                    return ResponseEntity.status(HttpStatus.CONFLICT).body("Se debe activar la cuenta");
+                }
+                return ResponseEntity.ok(usuario);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Datos erroneos");
         }
     }
 

@@ -27,4 +27,6 @@ public interface EstudianteRepository extends BaseRepository<Estudiante, Long> {
 
     List<Estudiante> findByEstadoTrueAndCedulaContainingIgnoreCase(String cedula);
 
+    Estudiante findByEstadoTrueAndCedula(String username);
+
 }

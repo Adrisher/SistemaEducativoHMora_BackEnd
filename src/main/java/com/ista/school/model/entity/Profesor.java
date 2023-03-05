@@ -30,6 +30,7 @@ public class Profesor implements Serializable {
     private Date fecha_nacimiento;
     private String correo;
     private String direccion;
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean estado;
     private String area;
 

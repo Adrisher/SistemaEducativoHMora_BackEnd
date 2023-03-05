@@ -8,7 +8,6 @@ public interface ProfesorService extends BaseService<Profesor, Long> {
 
     Profesor findByCedula(String cedula);
     List<Profesor> findByCedulaTrue(String cedula);
-
     List<Profesor> findByTrue ();
-
+    boolean isActive(String username);
 }

@@ -14,4 +14,6 @@ public interface EstudianteService extends BaseService<Estudiante, Long> {
 
     List<Estudiante> findByEstadoTrueAndCedula(String cedula);
 
+    boolean isActive(String username);
+
 }
