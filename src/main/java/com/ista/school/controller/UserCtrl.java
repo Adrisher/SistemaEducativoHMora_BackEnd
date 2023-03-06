@@ -25,34 +25,10 @@ public class UserCtrl {
     @Autowired
     private EstudianteService estudianteService;
 
-    @PostMapping("/registro")
-    public ResponseEntity<?> registrar(@RequestBody Usuario usuario){
-        Usuario oUsuario = this.usuarioService.findByCedula(usuario.getNombreUsuario());
-        if (oUsuario != null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
-        }
-        Profesor oProfesor=this.profesorService.findByCedula(usuario.getNombreUsuario());
-        if (oProfesor == null){
-            Estudiante oEstudiante=this.estudianteService.findByCedula(usuario.getNombreUsuario());
-            if (oEstudiante == null){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Profesor no encontrado");
-            }
-            usuario.setNombreUsuario(oEstudiante.getCedula());
-            usuario.setContraseña(usuario.getContraseña());
-            usuario.setRol("ESTUDIANTE");
-            Usuario guardar = usuarioService.save(usuario);
-            oEstudiante.setUsuario(guardar);
-            estudianteService.save(oEstudiante);
-            return ResponseEntity.ok(usuario);
-        }
-        usuario.setNombreUsuario(oProfesor.getCedula());
-        usuario.setContraseña(usuario.getContraseña());
-        usuario.setRol("PROFESOR");
-        oProfesor.setUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.save(usuario));
+    @PostMapping("/registro/profesor/")
+    public ResponseEntity<?> registrar(@RequestBody Usuario usuario) {
+            return  ResponseEntity.ok(usuarioService.save(usuario));
     }
-
-
 
     @GetMapping("/logIn/{username}/{password}")
     public ResponseEntity<?> iniciar(@PathVariable String username, @PathVariable String password) {

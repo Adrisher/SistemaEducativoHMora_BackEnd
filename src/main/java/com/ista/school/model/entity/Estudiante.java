@@ -59,6 +59,7 @@ public class Estudiante implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
+    @JsonIgnore
     private Usuario usuario;
 
 }
