@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hmora/periodo")
+@RequestMapping("/hmora/periodo/")
 @CrossOrigin(origins = {"*"})
 public class PeriodoCtrl {
 
@@ -45,7 +45,7 @@ public class PeriodoCtrl {
         }
     }
 
-    @PutMapping ("actualizar/{id}")
+    @PostMapping ("actualizar/{id}")
     public ResponseEntity<?> actualizar(@RequestBody Periodo t, @PathVariable Long id) {
         try {
             Periodo current = service.findById(id).orElse(null);
