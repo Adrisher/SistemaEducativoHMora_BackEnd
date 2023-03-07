@@ -62,6 +62,8 @@ public class ProfesorCtrl {
         current.setCorreo(t.getCorreo());
         current.setDireccion(t.getDireccion());
         current.setGenero(t.getGenero());
+        current.setEstado(true);
+        current.setUsuario(t.getUsuario());
         return new ResponseEntity<>(service.save(current), HttpStatus.OK);
     }
 
@@ -71,5 +73,18 @@ public class ProfesorCtrl {
         current.setEstado(false);
         return new ResponseEntity<>(service.save(current), HttpStatus.OK);
 
+    }
+
+    @GetMapping("/hired/")
+    public ResponseEntity<?> buscarProfe(@RequestParam(name = "cedula") String cedula) {
+        try {
+            Profesor profesor = service.findByCedula(cedula);
+            if (profesor == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NO EXISTE");
+            }
+            return ResponseEntity.ok(profesor);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

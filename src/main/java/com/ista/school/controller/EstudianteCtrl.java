@@ -24,17 +24,7 @@ public class EstudianteCtrl {
 
     @PostMapping("/crear")
     public ResponseEntity<?> crear(@RequestBody Estudiante t) {
-        try {
             return new ResponseEntity<>(service.save(t), HttpStatus.OK);
-        } catch (ConstraintViolationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (UnexpectedTypeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + " Revisar los campos");
-        }
     }
 
     @GetMapping("/buscar/")
