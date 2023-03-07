@@ -60,4 +60,13 @@ public class PeriodoCtrl {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> periodoId(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(service.findById(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + " Error de constraint");
+        }
+    }
+
 }

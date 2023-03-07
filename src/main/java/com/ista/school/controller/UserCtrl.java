@@ -27,11 +27,6 @@ public class UserCtrl {
             return  ResponseEntity.ok(usuarioService.save(usuario));
     }
 
-    @PostMapping("/registro/estudiante/")
-    public ResponseEntity<?> registrarEstu(@RequestBody Usuario usuario) {
-        return  ResponseEntity.ok(usuarioService.save(usuario));
-    }
-
     @GetMapping("/logIn/{username}/{password}")
     public ResponseEntity<?> iniciar(@PathVariable String username, @PathVariable String password) {
         try {

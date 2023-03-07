@@ -24,11 +24,7 @@ public class MatriculaCtrl {
 
     @PostMapping("/crear")
     public ResponseEntity<?> crear(@RequestBody Matricula t) {
-        try {
             return ResponseEntity.ok(service.save(t));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se pudo ingresar");
-        }
     }
 
     @GetMapping("/listar")
