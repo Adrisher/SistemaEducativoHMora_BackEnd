@@ -54,7 +54,7 @@ public class CursoCtrl {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping ("actualizar/{id}")
+    @PutMapping ("/actualizar/{id}")
     public ResponseEntity<?> actualizar(@RequestBody Curso t, @PathVariable Long id) {
         try {
             Curso current = service.findById(id).orElse(null);
