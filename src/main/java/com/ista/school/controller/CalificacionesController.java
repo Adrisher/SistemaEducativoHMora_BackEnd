@@ -5,13 +5,11 @@ import com.ista.school.service.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.UnexpectedTypeException;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,48 +28,7 @@ public class CalificacionesController {
     @Autowired
     private ParcialService parcialService;
     @Autowired
-    private QuimestreService quimestreService;
-    @Autowired
-    private DetalleService detalleService;
-    @Autowired
-    private MateriaService materiaService;
-    @Autowired
     private MatriculaService matriculaService;
-
-
-    @PostMapping("/crearActualizar")
-    public ResponseEntity<?> crearActualizar(@RequestBody Calificacion c) {
-        System.out.println("ok");
-
-        try {
-            Optional<Calificacion> find = calificaion.findById(c.getId_calificacion());
-            if (!find.isEmpty()) {
-                System.out.println("encontrado");
-                find.get().setCalificacion(c.getCalificacion());
-                find.get().setDescripcion(c.getDescripcion());
-                return new ResponseEntity<>(calificaion.save(find.get()), HttpStatus.OK);
-            }
-            System.out.println("creando");
-            return new ResponseEntity<>(calificaion.save(c), HttpStatus.OK);
-        } catch (ConstraintViolationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (UnexpectedTypeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + " Revisar los campos");
-        }
-    }
-
-    @GetMapping("/listar")
-    public ResponseEntity<List<?>> listar(){
-        try {
-            return new ResponseEntity<>(calificaion.findAll(),HttpStatus.OK);
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonList(e.getMessage()+"Revisar los campos"));
-        }
-    }
 
     @GetMapping("/returnidCurso/{idCurso}/{paralelo}")
     public ResponseEntity<Curso> returnId(@PathVariable String idCurso, @PathVariable String paralelo){
@@ -86,7 +43,7 @@ public class CalificacionesController {
         Curso curso=cursoService.buscarPorCicloParalelo(idCurso,paralelo);
 
         if (curso==null){
-            throw new EntityNotFoundException("no existe");
+            return new ArrayList<>();
         }
         List<Matricula> matriculas=curso.getMatriculas();
         for (Matricula matricula:matriculas){
@@ -118,7 +75,7 @@ public class CalificacionesController {
             }
             return materias;
         }
-        throw new EntityNotFoundException("ERROR");
+        return new ArrayList<>();
 
 
 
@@ -131,7 +88,7 @@ public class CalificacionesController {
         List<Quimestre> lista=new ArrayList<>();
 
         if (matricula==null){
-            throw new EntityNotFoundException("No se encontró la matrícula del estudiante con ID " + id_est);
+            return new ArrayList<>();
         }
 
         List<Detalle> detalles = matricula.getDetalles();
@@ -156,8 +113,8 @@ public class CalificacionesController {
         System.out.println(matricula.getId_matricula());
         List<Parcial> listas=new ArrayList<>();
 
-        if (matricula == null) {
-            throw new EntityNotFoundException("No se encontró la matrícula del estudiante con ID " + id_est);
+        if (matricula==null){
+            return new ArrayList<>();
         }
 
         List<Detalle> detalles = matricula.getDetalles();
@@ -186,7 +143,7 @@ public class CalificacionesController {
         List<Calificacion> lista=new ArrayList<>();
 
         if (matricula==null){
-            throw new EntityNotFoundException("No se encontró la matrícula del estudiante con ID " + id_est);
+            return new ArrayList<>();
         }
 
         List<Detalle> detalles = matricula.getDetalles();
@@ -208,35 +165,47 @@ public class CalificacionesController {
         return lista;
     }
 
-    @PostMapping("/adddCalificacionEstudiante/{idEstudiante}/{id_parcial}")
-    public ResponseEntity<?> agregarcalificacion(@PathVariable Long idEstudiante,@PathVariable Long id_parcial, @RequestBody Calificacion c){
 
-        Matricula matricula=matriculaService.buscarPorEstudiante(idEstudiante);
-        System.out.println(matricula.getId_matricula());
+    @PostMapping("/addCalifi/{id_est}/{id_parcial}")
+    public ResponseEntity<?> addCalif(@PathVariable Long id_est,@PathVariable Long id_parcial, @RequestBody Calificacion c){
+        Optional<Calificacion> find = calificaion.findById(c.getId_calificacion());
 
+        Matricula matricula=matriculaService.buscarPorEstudiante(id_est);
 
-
-        if (matricula==null){
-            throw new EntityNotFoundException("No se encontró la matrícula del estudiante con ID " + idEstudiante);
-        }
-
-        List<Detalle> detalles = matricula.getDetalles();
-        for (Detalle detalle:detalles){
-            List<Quimestre> quimestres=detalle.getQuimestre();
-            for (Quimestre quimestre:quimestres){
-                List<Parcial> parciales=quimestre.getParciales();
-                for (Parcial parcial:parciales){
-                    System.out.println(parcial.getId_parcial());
-                    if (parcial.getId_parcial().equals(id_parcial)){
-                        Optional<Parcial> oParcial=parcialService.findById(id_parcial);
-                        c.setParcial(oParcial.get());
-                        calificaion.save(c);
-                        parcialService.save(oParcial.get());
-                        return ResponseEntity.ok(parcial);
+        if (!find.isEmpty()) {
+            System.out.println("encontrado");
+            find.get().setCalificacion(c.getCalificacion());
+            find.get().setDescripcion(c.getDescripcion());
+            return new ResponseEntity<>(calificaion.save(find.get()), HttpStatus.OK);
+        }else{
+            if (matricula==null){
+                throw new EntityNotFoundException("No se encontró la matrícula del estudiante con ID " + id_est);
+            }
+    
+            List<Detalle> detalles = matricula.getDetalles();
+            for (Detalle detalle:detalles){
+                List<Quimestre> quimestres=detalle.getQuimestre();
+                for (Quimestre quimestre:quimestres){
+                    List<Parcial> parciales=quimestre.getParciales();
+                    for (Parcial parcial:parciales){
+                        System.out.println(parcial.getId_parcial());
+                        if (parcial.getId_parcial().equals(id_parcial)){
+                            Optional<Parcial> oParcial=parcialService.findById(id_parcial);
+                            c.setParcial(oParcial.get());
+                            calificaion.save(c);
+                            parcialService.save(oParcial.get());
+                            return ResponseEntity.ok(parcial);
+                        }
                     }
                 }
             }
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+
+        
+        
     }
+    
+
+
 }
