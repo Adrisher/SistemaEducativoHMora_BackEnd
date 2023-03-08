@@ -44,4 +44,9 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
         return update;
     }
 
+    @Override
+    public List<T> saveAll(List<T> detalles) {
+        return baseRepository.saveAll(detalles);
+    }
+
 }
