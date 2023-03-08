@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.webjars.NotFoundException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,10 +105,12 @@ public class ProfesorCursoMateriaCtrl {
             return new ResponseEntity<>(profesorCursoMateria, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-
     }
 
+    @GetMapping("/findByCurso")
+    public List<ProfesorCursoMateria> findByCurso(@RequestParam("idCurso") Long idCurso) {
+        return service.findByCurso(idCurso);
+    }
 
 
 }

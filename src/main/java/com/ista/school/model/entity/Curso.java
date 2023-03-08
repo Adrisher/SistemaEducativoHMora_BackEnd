@@ -16,7 +16,7 @@ public class Curso implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_curso;
+    private Long idCurso;
 
     @Column(columnDefinition = "INTEGER CHECK (cupo >= 0)")
     private Integer cupo;

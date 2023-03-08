@@ -3,16 +3,12 @@ package com.ista.school.controller;
 import com.ista.school.model.entity.*;
 import com.ista.school.service.*;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.UnexpectedTypeException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +43,7 @@ public class CalificacionesController {
         }
         List<Matricula> matriculas=curso.getMatriculas();
         for (Matricula matricula:matriculas){
-            System.out.println(matricula.getCurso().getId_curso());
+            System.out.println(matricula.getCurso().getIdCurso());
             estudiantes.add(matricula.getEstudiante());
         }
         return estudiantes;

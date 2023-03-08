@@ -9,6 +9,8 @@ import com.ista.school.repository.ProfesorCursoMateriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProfesorCursoMateriaServiceImpl extends BaseServiceImpl<ProfesorCursoMateria, Long> implements ProfesorCursoMateriaService {
 
@@ -22,6 +24,11 @@ public class ProfesorCursoMateriaServiceImpl extends BaseServiceImpl<ProfesorCur
     @Override
     public ProfesorCursoMateria buscarProfesorCursoMateria(Profesor profesor, Curso curso, Materia materia) {
         return this.repository.findByProfesorAndCursoAndMateria(profesor,curso,materia);
+    }
+
+    @Override
+    public List<ProfesorCursoMateria> findByCurso(Long idCurso) {
+        return repository.findByCursoIdCurso(idCurso);
     }
 
 }
