@@ -56,4 +56,9 @@ public class MatriculaCtrl {
         return null;
     }
 
+    @GetMapping("/buscar/{idE}/{idC}")
+    private ResponseEntity<?> buscar(@PathVariable Long idE,@PathVariable Long idC){
+        Matricula m=service.buscarPorEstudianteCurso(idE, idC);
+        return ResponseEntity.ok(m);
+    }
 }

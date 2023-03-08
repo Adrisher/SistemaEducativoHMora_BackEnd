@@ -25,6 +25,12 @@ public class CalificacionesController {
     private ParcialService parcialService;
     @Autowired
     private MatriculaService matriculaService;
+    @Autowired
+    private QuimestreService quimestreService; 
+    @Autowired
+    private DetalleService detalleService;
+    @Autowired
+    private EstudianteService repository;
 
     @GetMapping("/returnidCurso/{idCurso}/{paralelo}")
     public ResponseEntity<Curso> returnId(@PathVariable String idCurso, @PathVariable String paralelo){
@@ -198,7 +204,67 @@ public class CalificacionesController {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
     }
-    
+  
+    @PostMapping("/addQuiemestre/{id_est}/{id_materia}/{id_curso}")
+    public ResponseEntity<?> addQuimestres(@PathVariable Long id_est,@PathVariable Long id_materia,@PathVariable Long id_curso,@RequestBody Quimestre q){
+
+        Matricula matricula=matriculaService.buscarPorEstudianteCurso(id_est, id_curso);
+        System.out.println(matricula.getId_matricula());    
+        
+
+        if (matricula==null){
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Detalle> detalles = matricula.getDetalles();
+        for (Detalle detalle:detalles){
+            if (detalle.getMateria().getId_materia().equals(id_materia)){
+                Optional<Detalle> find=detalleService.findById(detalle.getId_detalle());
+                System.out.println(detalle.getId_detalle());
+                System.out.println(find.get().getId_detalle());
+                q.setDetalle(find.get());
+                quimestreService.save(q);
+                detalleService.save(find.get());
+                return ResponseEntity.ok(q);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+        
+    }
+
+    @PostMapping("/addParciales/{id_est}/{id_quim}")
+    public ResponseEntity<?> addParciales(@PathVariable Long id_est,@PathVariable Long id_quim,@RequestBody Parcial p) {
+        Matricula matricula = matriculaService.buscarPorEstudiante(id_est);
+        System.out.println(matricula.getId_matricula());
+
+        if (matricula==null){
+            throw new EntityNotFoundException("No se encontró la matrícula del estudiante con ID " + id_est);
+        }
+
+        List<Detalle> detalles = matricula.getDetalles();
+        for (Detalle detalle : detalles) {
+        	System.out.println(detalle.getId_detalle());
+            List<Quimestre> quimestres = detalle.getQuimestre();
+            for (Quimestre quimestre : quimestres) {
+                if (quimestre.getId_quimestre().equals(id_quim)){
+                        Optional<Quimestre> oQuim=quimestreService.findById(id_quim);
+                        p.setQuimestre(oQuim.get());
+                        parcialService.save(p);
+                        quimestreService.save(oQuim.get());
+                        return ResponseEntity.ok(p);
+                }
+            }
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/buscarEstudiante/{cedula}")
+    public ResponseEntity<?> buscraEst(@PathVariable String cedula){
+
+        Estudiante est=repository.findByCedula(cedula);
+        return ResponseEntity.ok(est);
+
+    }
 
 
 }
