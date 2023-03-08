@@ -45,14 +45,18 @@ public class ProfesorCursoMateriaCtrl {
 
     @PostMapping ("actualizar/{id}")
     public ResponseEntity<?> actualizar(@RequestBody ProfesorCursoMateria t, @PathVariable Long id) {
-        ProfesorCursoMateria current = service.findById(id).orElse(null);
-        if (current != null) {
-            current.setProfesor(t.getProfesor());
-            current.setCurso(t.getCurso());
-            current.setMateria(t.getMateria());
-            return new ResponseEntity<>(service.save(t), HttpStatus.OK);
+        try {
+            ProfesorCursoMateria current = service.findById(id).orElse(null);
+            if (current != null) {
+                current.setProfesor(t.getProfesor());
+                //current.setCurso(t.getCurso());
+                current.setMateria(t.getMateria());
+                return new ResponseEntity<>(service.save(t), HttpStatus.OK);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Noexiste el PCM");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(" Error del Servidor");
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(" Error del Servidor");
     }
 
     @DeleteMapping("/eliminar/{id}")
@@ -111,6 +115,5 @@ public class ProfesorCursoMateriaCtrl {
     public List<ProfesorCursoMateria> findByCurso(@RequestParam("idCurso") Long idCurso) {
         return service.findByCurso(idCurso);
     }
-
 
 }
