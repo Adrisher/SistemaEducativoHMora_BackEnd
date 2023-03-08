@@ -2,6 +2,7 @@ package com.ista.school.controller;
 
 import com.ista.school.model.entity.Profesor;
 import com.ista.school.service.ProfesorService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +55,7 @@ public class ProfesorCtrl {
         Profesor current = service.findById(id).orElse(null);
         current.setNombre(t.getNombre());
         current.setSegundo_nombre(t.getSegundo_nombre());
-        current.setPrimer_apellido(t.getPrimer_apellido());
+        current.setPrimerApellido(t.getPrimerApellido());
         current.setSegundo_apellido(t.getSegundo_apellido());
         current.setArea(t.getArea());
         current.setCedula(t.getCedula());
@@ -87,4 +88,21 @@ public class ProfesorCtrl {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/lookfor/")
+    public ResponseEntity<List<?>> searchTeacher(@RequestParam("filtro") String filtro) {
+        try {
+            if (StringUtils.isBlank(filtro)) {
+                return ResponseEntity.ok(service.findAll());
+            } else {
+                return ResponseEntity.ok(service.seachByCedulaOrApellido(filtro));
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
 }

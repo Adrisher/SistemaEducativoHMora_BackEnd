@@ -22,7 +22,7 @@ public class Profesor implements Serializable {
 
     private String nombre;
     private String segundo_nombre;
-    private String primer_apellido;
+    private String primerApellido;
     private String segundo_apellido;
     private String genero;
 

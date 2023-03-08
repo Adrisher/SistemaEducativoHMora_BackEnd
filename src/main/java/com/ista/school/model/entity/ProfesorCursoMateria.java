@@ -16,17 +16,17 @@ public class ProfesorCursoMateria implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_pro_mate_curso;
 
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @NotNull(message = "Campo Obligatorio")
     @ManyToOne
     @JoinColumn(name = "id_profesor",referencedColumnName = "id_profesor")
     private Profesor profesor;
 
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @NotNull(message = "Campo Obligatorio")
     @ManyToOne
     @JoinColumn(name = "id_curso",referencedColumnName = "id_curso")
     private Curso curso;
 
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @NotNull(message = "Campo Obligatorio")
     @ManyToOne
     @JoinColumn(name = "id_materia",referencedColumnName = "id_materia")
     private Materia materia;
