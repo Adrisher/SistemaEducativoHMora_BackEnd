@@ -168,11 +168,13 @@ public class CalificacionesController {
     }
 
 
-    @PostMapping("/addCalifi/{id_est}/{id_parcial}")
-    public ResponseEntity<?> addCalif(@PathVariable Long id_est,@PathVariable Long id_parcial, @RequestBody Calificacion c){
+    @PostMapping("/addCalifi/{id_est}/{id_parcial}/{promedio}")
+    public ResponseEntity<?> addCalif(@PathVariable Long id_est,@PathVariable Long id_parcial,@PathVariable String promedio, @RequestBody Calificacion c){
         Optional<Calificacion> find = calificaion.findById(c.getId_calificacion());
 
         Matricula matricula=matriculaService.buscarPorEstudiante(id_est);
+
+        Double prome = Double.parseDouble(promedio);
 
         if (!find.isEmpty()) {
             System.out.println("encontrado");
@@ -194,6 +196,7 @@ public class CalificacionesController {
                         if (parcial.getId_parcial().equals(id_parcial)){
                             Optional<Parcial> oParcial=parcialService.findById(id_parcial);
                             c.setParcial(oParcial.get());
+                            oParcial.get().setPromedio(prome);
                             calificaion.save(c);
                             parcialService.save(oParcial.get());
                             return ResponseEntity.ok(parcial);
@@ -266,6 +269,46 @@ public class CalificacionesController {
 
         Estudiante est=repository.findByCedula(cedula);
         return ResponseEntity.ok(est);
+
+    }
+
+    @PutMapping("/actualizarQuimestre/{prome}/{examen}")
+    public ResponseEntity<?> updateQuiemstre(@PathVariable String examen,@PathVariable String prome,@RequestBody Quimestre quim){
+
+        Double ex = Double.parseDouble(examen);
+        Double prom=Double.parseDouble(prome);
+        Optional<Quimestre> oQuim=quimestreService.findById(quim.getId_quimestre());
+        Quimestre quimestre=oQuim.get();
+        if(quimestre==null){
+            throw new EntityNotFoundException("No se encontró el quimestre");
+        }
+        quimestre.setExamen_quimestral(ex);
+        Optional<Detalle> oDetalle=detalleService.findById(quimestre.getDetalle().getId_detalle());
+        quimestre.getDetalle().setPromedio_final(prom);
+        detalleService.save(oDetalle.get());
+        quimestreService.save(quimestre);
+        return ResponseEntity.ok(quimestre);
+    }
+
+    @PutMapping("/actualizarParcial/{prueba}/{promedio}")
+    public ResponseEntity<?> updateParcial(@PathVariable String prueba,@PathVariable String promedio,@RequestBody Parcial parc){
+
+        Double prue = Double.parseDouble(prueba);
+        Double prom = Double.parseDouble(promedio);
+
+        Optional<Parcial> oParcial=parcialService.findById(parc.getId_parcial());
+        Parcial parcial=oParcial.get();
+        if(parcial==null){
+            throw new EntityNotFoundException("No se encontró el parcial");
+        }
+        parcial.setPrueba_parcial(prue);
+        Optional<Quimestre> quimestre=quimestreService.findById(parcial.getQuimestre().getId_quimestre());
+        parcial.getQuimestre().setPromedioParcial(prom);
+        quimestreService.save(quimestre.get());
+        parcialService.save(parcial);
+
+        return ResponseEntity.ok(quimestre.get());
+
 
     }
 
