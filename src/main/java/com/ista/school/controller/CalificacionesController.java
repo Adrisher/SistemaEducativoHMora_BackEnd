@@ -35,7 +35,7 @@ public class CalificacionesController {
     @GetMapping("/returnidCurso/{idCurso}/{paralelo}")
     public ResponseEntity<Curso> returnId(@PathVariable String idCurso, @PathVariable String paralelo){
         Curso curso=cursoService.buscarPorCicloParalelo(idCurso,paralelo);
-        System.out.println("OK");
+        System.out.println("ID OK");
         return ResponseEntity.ok(curso);
     }
 
@@ -45,6 +45,7 @@ public class CalificacionesController {
         Curso curso=cursoService.buscarPorCicloParalelo(idCurso,paralelo);
 
         if (curso==null){
+            System.out.println("Lista vacia");
             return new ArrayList<>();
         }
         List<Matricula> matriculas=curso.getMatriculas();
@@ -65,7 +66,7 @@ public class CalificacionesController {
         if (matricula!=null){
             List<Detalle> detalles = matricula.getDetalles();
             if (detalles.isEmpty()){
-                throw new RuntimeException("lista vacia");
+                throw new RuntimeException("lista vacia!!");
             }
             for (Detalle detalle:detalles){
 
@@ -73,7 +74,7 @@ public class CalificacionesController {
             }
 
             if (materias.isEmpty()){
-                throw new RuntimeException("lista vacia ");
+                throw new RuntimeException("lista vacia !!");
             }
             return materias;
         }
@@ -205,10 +206,7 @@ public class CalificacionesController {
                 }
             }
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        }
-
-        
-        
+        } 
     }
   
     @PostMapping("/addQuiemestre/{id_est}/{id_materia}/{id_curso}")
@@ -235,7 +233,6 @@ public class CalificacionesController {
             }
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
-        
     }
 
     @PostMapping("/addParciales/{id_est}/{id_quim}")
@@ -280,7 +277,7 @@ public class CalificacionesController {
         Optional<Quimestre> oQuim=quimestreService.findById(quim.getId_quimestre());
         Quimestre quimestre=oQuim.get();
         if(quimestre==null){
-            throw new EntityNotFoundException("No se encontró el quimestre");
+            throw new EntityNotFoundException("No se encontró el quimestre!!");
         }
         quimestre.setExamen_quimestral(ex);
         Optional<Detalle> oDetalle=detalleService.findById(quimestre.getDetalle().getId_detalle());
@@ -299,7 +296,7 @@ public class CalificacionesController {
         Optional<Parcial> oParcial=parcialService.findById(parc.getId_parcial());
         Parcial parcial=oParcial.get();
         if(parcial==null){
-            throw new EntityNotFoundException("No se encontró el parcial");
+            throw new EntityNotFoundException("No se encontró el parcial!!");
         }
         parcial.setPrueba_parcial(prue);
         Optional<Quimestre> quimestre=quimestreService.findById(parcial.getQuimestre().getId_quimestre());
