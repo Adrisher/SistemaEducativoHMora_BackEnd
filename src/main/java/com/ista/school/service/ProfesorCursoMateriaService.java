@@ -5,7 +5,12 @@ import com.ista.school.model.entity.Materia;
 import com.ista.school.model.entity.Profesor;
 import com.ista.school.model.entity.ProfesorCursoMateria;
 
+import java.util.List;
+
 public interface ProfesorCursoMateriaService extends BaseService<ProfesorCursoMateria, Long> {
 
-    public ProfesorCursoMateria buscarProfesorCursoMateria(Profesor profesor, Curso curso, Materia materia);
+    ProfesorCursoMateria buscarProfesorCursoMateria(Profesor profesor, Curso curso, Materia materia);
+
+    List<ProfesorCursoMateria> findByCurso(Long idCurso);
+
 }

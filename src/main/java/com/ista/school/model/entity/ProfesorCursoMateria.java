@@ -9,24 +9,24 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "profesor_curso_materia",uniqueConstraints=@UniqueConstraint(columnNames = {"id_profesor","id_curso","id_materia"}))
+@Table(name = "profesor_curso_materia",uniqueConstraints=@UniqueConstraint(columnNames = {"id_profesor","idCurso","id_materia"}))
 public class ProfesorCursoMateria implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_pro_mate_curso;
 
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @NotNull(message = "Campo Obligatorio")
     @ManyToOne
     @JoinColumn(name = "id_profesor",referencedColumnName = "id_profesor")
     private Profesor profesor;
 
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @NotNull(message = "Campo Obligatorio")
     @ManyToOne
-    @JoinColumn(name = "id_curso",referencedColumnName = "id_curso")
+    @JoinColumn(name = "idCurso",referencedColumnName = "idCurso")
     private Curso curso;
 
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @NotNull(message = "Campo Obligatorio")
     @ManyToOne
     @JoinColumn(name = "id_materia",referencedColumnName = "id_materia")
     private Materia materia;

@@ -13,5 +13,6 @@ public interface BaseService<T, ID extends Serializable> {
     T save(T entity);
     RequestEntity<?> deleteById(ID id);
     T update(T t, ID id);
+    List<T> saveAll(List<T> detalles);
 
 }

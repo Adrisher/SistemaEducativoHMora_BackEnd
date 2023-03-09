@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "matricula", uniqueConstraints=@UniqueConstraint(columnNames = {"id_estudiante","id_curso","id_periodo"}))
+@Table(name = "matricula", uniqueConstraints=@UniqueConstraint(columnNames = {"id_estudiante","idCurso","id_periodo"}))
 public class Matricula implements Serializable {
 
     @Id
@@ -24,7 +24,6 @@ public class Matricula implements Serializable {
     @CreationTimestamp
     private LocalDateTime fecha;
 
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "CAMPO VACIO")
     private String observaciones;
 
     @ManyToOne
@@ -36,7 +35,7 @@ public class Matricula implements Serializable {
     private Periodo periodo;
 
     @ManyToOne
-    @JoinColumn(name = "id_curso",referencedColumnName = "id_curso")
+    @JoinColumn(name = "idCurso",referencedColumnName = "idCurso")
     private Curso curso;
 
     @OneToMany(mappedBy = "matricula",cascade = CascadeType.ALL)

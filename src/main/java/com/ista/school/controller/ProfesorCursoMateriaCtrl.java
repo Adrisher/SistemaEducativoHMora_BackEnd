@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.webjars.NotFoundException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,14 +45,18 @@ public class ProfesorCursoMateriaCtrl {
 
     @PostMapping ("actualizar/{id}")
     public ResponseEntity<?> actualizar(@RequestBody ProfesorCursoMateria t, @PathVariable Long id) {
-        ProfesorCursoMateria current = service.findById(id).orElse(null);
-        if (current != null) {
-            current.setProfesor(t.getProfesor());
-            current.setCurso(t.getCurso());
-            current.setMateria(t.getMateria());
-            return new ResponseEntity<>(service.save(t), HttpStatus.OK);
+        try {
+            ProfesorCursoMateria current = service.findById(id).orElse(null);
+            if (current != null) {
+                current.setProfesor(t.getProfesor());
+                //current.setCurso(t.getCurso());
+                current.setMateria(t.getMateria());
+                return new ResponseEntity<>(service.save(t), HttpStatus.OK);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Noexiste el PCM");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(" Error del Servidor");
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(" Error del Servidor");
     }
 
     @DeleteMapping("/eliminar/{id}")
@@ -104,8 +109,11 @@ public class ProfesorCursoMateriaCtrl {
             return new ResponseEntity<>(profesorCursoMateria, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
-
+    @GetMapping("/findByCurso")
+    public List<ProfesorCursoMateria> findByCurso(@RequestParam("idCurso") Long idCurso) {
+        return service.findByCurso(idCurso);
     }
 
 }

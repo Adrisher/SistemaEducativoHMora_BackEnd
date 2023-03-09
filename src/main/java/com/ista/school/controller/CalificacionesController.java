@@ -50,7 +50,7 @@ public class CalificacionesController {
         }
         List<Matricula> matriculas=curso.getMatriculas();
         for (Matricula matricula:matriculas){
-            System.out.println(matricula.getCurso().getId_curso());
+            System.out.println(matricula.getCurso().getIdCurso());
             estudiantes.add(matricula.getEstudiante());
         }
         return estudiantes;
@@ -206,7 +206,7 @@ public class CalificacionesController {
                 }
             }
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        } 
+
     }
   
     @PostMapping("/addQuiemestre/{id_est}/{id_materia}/{id_curso}")

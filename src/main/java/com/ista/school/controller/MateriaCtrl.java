@@ -67,4 +67,13 @@ public class MateriaCtrl {
         return null;
     }
 
+    @GetMapping("/")
+    public ResponseEntity<?> getMateria(String nombre) {
+        try {
+            return ResponseEntity.ok(service.fingdByNombre(nombre));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falla en el servidor");
+        }
+    }
+
 }

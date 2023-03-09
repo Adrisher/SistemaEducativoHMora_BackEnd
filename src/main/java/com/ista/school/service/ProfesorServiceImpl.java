@@ -3,12 +3,10 @@ package com.ista.school.service;
 import com.ista.school.model.entity.Profesor;
 import com.ista.school.repository.BaseRepository;
 import com.ista.school.repository.ProfesorRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProfesorServiceImpl extends BaseServiceImpl<Profesor, Long> implements ProfesorService {
@@ -42,6 +40,11 @@ public class ProfesorServiceImpl extends BaseServiceImpl<Profesor, Long> impleme
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Profesor> seachByCedulaOrApellido(String filtro) {
+        return repository.findByCedulaContainingIgnoreCaseOrPrimerApellidoContainingIgnoreCaseAndEstadoTrue(filtro, filtro);
     }
 
 

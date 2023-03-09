@@ -10,4 +10,7 @@ public interface ProfesorService extends BaseService<Profesor, Long> {
     List<Profesor> findByCedulaTrue(String cedula);
     List<Profesor> findByTrue ();
     boolean isActive(String username);
+
+    List<Profesor> seachByCedulaOrApellido(String filtro);
+
 }

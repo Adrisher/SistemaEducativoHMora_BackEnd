@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "detalle")
+@Table(name = "detalle", uniqueConstraints=@UniqueConstraint(columnNames = {"id_matricula","id_materia"}))
 public class Detalle implements Serializable {
 
     @Id
@@ -18,7 +18,6 @@ public class Detalle implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_materia",referencedColumnName = "id_materia")
-    @JsonIgnore
     private Materia materia;
 
     private Double supletorio;
@@ -32,7 +31,6 @@ public class Detalle implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_matricula",referencedColumnName = "id_matricula")
-    @JsonIgnore
     private Matricula matricula;
 
 }
