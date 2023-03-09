@@ -23,11 +23,9 @@ public class Estudiante implements Serializable {
 
     @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String nombre;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String segundo_nombre;
     @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String primer_apellido;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String segundo_apellido;
     @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     @Pattern(regexp = "[MF]{1}")
@@ -35,10 +33,10 @@ public class Estudiante implements Serializable {
     @Temporal(TemporalType.DATE)
     @Past
     private Date fecha_nacimiento;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "LLENAR EL CAMPO")
     @Email(message = "Invalid email address")
     private String correo;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "LLENAR EL CAMPO")
     private String direccion;
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean estado;

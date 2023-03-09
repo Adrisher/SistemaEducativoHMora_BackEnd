@@ -24,7 +24,6 @@ public class Matricula implements Serializable {
     @CreationTimestamp
     private LocalDateTime fecha;
 
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "CAMPO VACIO")
     private String observaciones;
 
     @ManyToOne
