@@ -1,7 +1,6 @@
 package com.ista.school.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ista.school.model.enums.Genero;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
