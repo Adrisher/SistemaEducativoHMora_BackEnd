@@ -60,8 +60,9 @@ public class ProfesorCursoMateriaCtrl {
     }
 
     @DeleteMapping("/eliminar/{id}")
-    private ResponseEntity<?> eliminar(@PathVariable Long id) {
-        return null;
+    private ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 
