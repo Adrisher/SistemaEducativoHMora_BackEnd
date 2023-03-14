@@ -24,11 +24,11 @@ public class Representante implements Serializable {
 
     @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String nombre;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+
     private String segundo_nombre;
     @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String primer_apellido;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+
     private String segundo_apellido;
     @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     @Pattern(regexp = "[MF]{1}")
@@ -36,8 +36,7 @@ public class Representante implements Serializable {
     @Temporal(TemporalType.DATE)
     @Past
     private Date fecha_nacimiento;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
-    @Email(message = "Invalid email address")
+    @NotNull(message = "Campo Obligatorio") @Email(message = "Invalid email address")
     private String correo;
     @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String direccion;
@@ -45,7 +44,7 @@ public class Representante implements Serializable {
     private String ocupacion;
     @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
     private String telefonoContacto;
-    @NotNull(message = "Campo Obligatorio") @NotBlank(message = "No valido")
+
     private String telefonoContacto2;
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean estado;
